@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WeLap - GPS lap timing, garage management, and community for motorsport enthusiasts">
+    <meta name="theme-color" content="#000000">
+    <title>WeLap - We drive. We track. We lap.</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-bg: #0a0a0a;
+            --color-bg-alt: #141414;
+            --color-bg-card: #1a1a1a;
+            --color-text: #ffffff;
+            --color-text-secondary: #a0a0a0;
+            --color-text-muted: #808080;
+            --color-orange: #ff6b35;
+            --color-orange-light: #ff8c4a;
+            --color-pink: #ff1744;
+            --color-magenta: #e91e63;
+            --color-purple: #9c27b0;
+            --color-accent: linear-gradient(135deg, #ff6b35 0%, #e91e63 50%, #9c27b0 100%);
+            --border-radius: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            background-attachment: fixed;
+            color: var(--color-text);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            font-weight: 400;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.6s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--color-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            font-style: italic;
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            font-style: italic;
+            background: var(--color-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-orange);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--color-orange);
+        }
+        
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .lang-selector {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            color: var(--color-text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lang-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-orange);
+            color: white;
+        }
+        
+        .lang-btn:hover {
+            border-color: var(--color-orange);
+            color: var(--color-orange);
+        }
+        
+        @media (max-width: 968px) {
+            nav {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .nav-center {
+                width: 100%;
+                order: 3;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 13px;
+            }
+            
+            .lang-selector {
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            nav {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+        }
+        
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Main content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: calc(100vh - 300px);
+        }
+        
+        /* Home page */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            font-style: italic;
+            margin-bottom: 1.2rem;
+            background: var(--color-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+        
+        .hero .subtitle {
+            font-size: 22px;
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+        
+        .hero .description {
+            font-size: 16px;
+            color: var(--color-text-muted);
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.9;
+        }
+        
+        .slogan {
+            font-size: 20px;
+            font-style: italic;
+            margin-top: 2.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .slogan-word1 { color: var(--color-text); }
+        .slogan-word2 { color: var(--color-orange); }
+        .slogan-word3 { color: var(--color-magenta); }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .feature {
+            background: var(--color-bg-card);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .feature:hover::before {
+            left: 100%;
+        }
+        
+        .feature:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 107, 53, 0.3);
+            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.15);
+        }
+        
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--color-text);
+        }
+        
+        .feature p {
+            font-size: 15px;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+        
+        /* Content pages */
+        .content-page {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .content-page h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: var(--color-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .content-page h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--color-orange);
+        }
+        
+        .content-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--color-text);
+        }
+        
+        .content-page p {
+            margin-bottom: 1.2rem;
+            color: var(--color-text-secondary);
+            line-height: 1.95;
+        }
+        
+        .content-page ul, .content-page ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+            color: var(--color-text-secondary);
+            line-height: 1.95;
+        }
+        
+        .content-page li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .content-page a {
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .content-page a:hover {
+            color: var(--color-orange-light);
+            text-decoration: underline;
+        }
+        
+        .info-box {
+            background: var(--color-bg-card);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--color-orange);
+            margin: 2rem 0;
+        }
+        
+        .last-updated {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 107, 53, 0.1);
+            padding: 4rem 2rem;
+            margin-top: 6rem;
+        }
+        
+        footer .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        footer .brand {
+            font-size: 28px;
+            font-weight: 800;
+            font-style: italic;
+            background: var(--color-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+            letter-spacing: -1px;
+        }
+        
+        footer .slogan {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            font-size: 14px;
+        }
+        
+        footer .footer-links a {
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        footer .footer-links a:hover {
+            color: var(--color-orange-light);
+            text-decoration: underline;
+        }
+        
+        footer .copyright {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 2.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .hero .subtitle {
+                font-size: 18px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-page h1 {
+                font-size: 36px;
+            }
+            
+            .content-page h2 {
+                font-size: 20px;
+            }
+            
+            footer {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            footer .footer-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container" onclick="navigateTo('home'); return false;">
+                <div class="logo-icon">W</div>
+                <div class="logo-text">WeLap</div>
+            </div>
+            
+            <div class="nav-center">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-item active" data-page="home" onclick="navigateTo('home'); return false;"><span data-lang="fr">Accueil</span><span data-lang="en" style="display:none;">Home</span></a></li>
+                    <li><a href="#" class="nav-item" data-page="support" onclick="navigateTo('support'); return false;"><span data-lang="fr">Support</span><span data-lang="en" style="display:none;">Support</span></a></li>
+                    <li><a href="#" class="nav-item" data-page="privacy" onclick="navigateTo('privacy'); return false;"><span data-lang="fr">Confidentialité</span><span data-lang="en" style="display:none;">Privacy</span></a></li>
+                    <li><a href="#" class="nav-item" data-page="terms" onclick="navigateTo('terms'); return false;"><span data-lang="fr">Conditions</span><span data-lang="en" style="display:none;">Terms</span></a></li>
+                </ul>
+                
+                <div class="lang-selector">
+                    <button class="lang-btn active" id="lang-fr" onclick="setLanguage('fr'); return false;">🇫🇷</button>
+                    <button class="lang-btn" id="lang-en" onclick="setLanguage('en'); return false;">🇬🇧</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>WeLap</h1>
+                <p class="subtitle"><span data-lang="fr">Chronos, garage et communauté pour les passionnés de circuit auto et moto.</span><span data-lang="en" style="display:none;">GPS lap timing, garage management, and community for motorsport enthusiasts</span></p>
+                <p class="description"><span data-lang="fr">WeLap permet aux pilotes amateurs de suivre leurs chronos GPS, comparer leurs performances, gérer leur garage et partager leurs sessions avec une communauté de passionnés.</span><span data-lang="en" style="display:none;">WeLap empowers amateur drivers to track their GPS lap times, compare performance, manage their garage, and share sessions with a passionate community.</span></p>
+                <div class="slogan">
+                    <span class="slogan-word1">We drive.</span>
+                    <span class="slogan-word2">We track.</span>
+                    <span class="slogan-word3">We lap.</span>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <h3><span data-lang="fr">Chronométrage GPS</span><span data-lang="en" style="display:none;">GPS Lap Timing</span></h3>
+                    <p><span data-lang="fr">Suivez précisément vos chronos sur tous les circuits avec la technologie GPS intégrée.</span><span data-lang="en" style="display:none;">Precisely track your lap times on all circuits with integrated GPS technology.</span></p>
+                </div>
+                <div class="feature">
+                    <h3><span data-lang="fr">Classements par circuit</span><span data-lang="en" style="display:none;">Circuit Leaderboards</span></h3>
+                    <p><span data-lang="fr">Comparez vos performances avec les autres pilotes sur chaque circuit.</span><span data-lang="en" style="display:none;">Compare your performance with other drivers on every circuit.</span></p>
+                </div>
+                <div class="feature">
+                    <h3><span data-lang="fr">Garage personnel</span><span data-lang="en" style="display:none;">Personal Garage</span></h3>
+                    <p><span data-lang="fr">Organisez et gérez tous vos véhicules en un seul endroit.</span><span data-lang="en" style="display:none;">Organize and manage all your vehicles in one place.</span></p>
+                </div>
+                <div class="feature">
+                    <h3><span data-lang="fr">Profil pilote</span><span data-lang="en" style="display:none;">Driver Profile</span></h3>
+                    <p><span data-lang="fr">Construisez votre historique et montrez votre progression au fil du temps.</span><span data-lang="en" style="display:none;">Build your history and showcase your progression over time.</span></p>
+                </div>
+                <div class="feature">
+                    <h3><span data-lang="fr">Communauté</span><span data-lang="en" style="display:none;">Community</span></h3>
+                    <p><span data-lang="fr">Partagez vos sessions, publications et connectez-vous avec d'autres passionnés.</span><span data-lang="en" style="display:none;">Share sessions, post content, and connect with fellow enthusiasts.</span></p>
+                </div>
+                <div class="feature">
+                    <h3><span data-lang="fr">Circuits et événements</span><span data-lang="en" style="display:none;">Circuits & Events</span></h3>
+                    <p><span data-lang="fr">Découvrez de nouveaux circuits et événements près de chez vous.</span><span data-lang="en" style="display:none;">Discover new circuits and events in your area.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Page -->
+        <div id="support" class="page">
+            <div class="content-page">
+                <h1><span data-lang="fr">Support WeLap</span><span data-lang="en" style="display:none;">WeLap Support</span></h1>
+                
+                <div class="info-box">
+                    <p><span data-lang="fr">Besoin d'aide avec WeLap ? Contactez-nous pour toute question liée à votre compte, vos chronos, votre garage, vos publications, votre abonnement Premium ou la suppression de vos données.</span><span data-lang="en" style="display:none;">Need help with WeLap? Contact us for any questions about your account, lap times, garage, posts, subscriptions, or data deletion.</span></p>
+                </div>
+
+                <h2><span data-lang="fr">Nous contacter</span><span data-lang="en" style="display:none;">Contact Us</span></h2>
+                <p><strong><span data-lang="fr">Email :</span><span data-lang="en" style="display:none;">Email:</span></strong> <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
+                <p><strong><span data-lang="fr">Téléphone :</span><span data-lang="en" style="display:none;">Phone:</span></strong> <a href="tel:+33616380317">06 16 38 03 17</a></p>
+
+                <div class="info-box">
+                    <h2 style="margin-top: 0; color: var(--color-orange);"><span data-lang="fr">Conseils pour nous contacter</span><span data-lang="en" style="display:none;">Tips for Contacting Us</span></h2>
+                    <p style="margin-bottom: 0;"><span data-lang="fr">Pour une réponse plus rapide, décrivez votre problème en détail et ajoutez une capture d'écran si possible.</span><span data-lang="en" style="display:none;">For faster response, describe your issue in detail and include a screenshot if possible.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Page -->
+        <div id="privacy" class="page">
+            <div class="content-page">
+                <h1><span data-lang="fr">Politique de confidentialité</span><span data-lang="en" style="display:none;">Privacy Policy</span></h1>
+                
+                <div class="last-updated"><span data-lang="fr">Dernière mise à jour : Janvier 2025</span><span data-lang="en" style="display:none;">Last Updated: January 2025</span></div>
+
+                <!-- FRENCH VERSION -->
+                <div data-lang="fr">
+                    <p>WeLap collecte certaines données nécessaires au fonctionnement de l'application, notamment l'adresse e-mail, les informations de profil, les contenus publiés, les véhicules ajoutés au garage, les chronos, les interactions dans l'application et, lorsque l'utilisateur l'autorise, les données de localisation nécessaires au chronométrage GPS.</p>
+
+                    <p>Ces données sont utilisées pour fournir les fonctionnalités de l'application : création de compte, connexion, chronométrage, classements, garage, publications, communauté et abonnement Premium.</p>
+
+                    <p><strong>WeLap ne vend pas les données personnelles des utilisateurs.</strong></p>
+
+                    <p>Les données de localisation sont utilisées pour les fonctionnalités liées aux circuits et au chronométrage. Elles ne sont pas utilisées à des fins de suivi publicitaire dans la version actuelle de l'application.</p>
+
+                    <p>Les photos, vidéos, publications, commentaires et informations de garage sont liés au compte utilisateur afin de permettre l'affichage du profil, du garage et des publications.</p>
+
+                    <p><strong>Suppression de compte et données :</strong> Les utilisateurs peuvent demander la suppression de leur compte ou de leurs données en contactant : <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
+                </div>
+
+                <!-- ENGLISH VERSION -->
+                <div data-lang="en" style="display:none;">
+                    <h2>Introduction</h2>
+                    <p>WeLap ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
+
+                    <h2>Information We Collect</h2>
+                    
+                    <h3>Account and Profile Information</h3>
+                    <p>When you create a WeLap account, we collect your email address, username, profile picture, and other profile details you provide.</p>
+
+                    <h3>Vehicle Information</h3>
+                    <p>When you add vehicles to your garage, we collect information including make, model, year, horsepower, transmission type, and photos.</p>
+
+                    <h3>Location and GPS Data</h3>
+                    <p>With your permission, WeLap collects precise location data via GPS when you use our lap timing features. This data is necessary to calculate and record your lap times. You can disable GPS access through your device settings.</p>
+
+                    <h3>Session and Performance Data</h3>
+                    <p>We collect and store data about your driving sessions, including lap times, circuit information, vehicle selection, and performance metrics.</p>
+
+                    <h3>User-Generated Content</h3>
+                    <p>WeLap allows you to upload photos, videos, posts, and comments. We collect, store, and display this content as part of your profile and community interactions.</p>
+
+                    <h3>Payment and Subscription Information</h3>
+                    <p>If you subscribe to WeLap Premium, your subscription is processed through Apple In-App Purchase. We do not collect, store, or have access to your credit card or banking information. Apple handles all payment processing securely.</p>
+
+                    <h3>Technical Information</h3>
+                    <p>We automatically collect technical data including device model, operating system version, app version, and crash reports to improve app stability and performance.</p>
+
+                    <h2>How We Use Information</h2>
+                    <ul>
+                        <li>Provide, operate, and maintain the App and its features</li>
+                        <li>Create and manage your account</li>
+                        <li>Record and display your lap times and performance</li>
+                        <li>Enable leaderboards and rankings</li>
+                        <li>Facilitate community features and sharing</li>
+                        <li>Manage your Premium subscription</li>
+                        <li>Analyze app usage and improve user experience</li>
+                        <li>Send service updates and support responses</li>
+                        <li>Protect against fraud and unauthorized access</li>
+                        <li>Comply with applicable laws and regulations</li>
+                    </ul>
+
+                    <h2>Location Data</h2>
+                    <p>WeLap uses GPS location data for lap timing and performance tracking. Location data is only collected when you actively initiate a GPS recording session. You can disable GPS access through your device settings. Location data is encrypted during transmission and storage.</p>
+
+                    <h2>User Content</h2>
+                    <p>You are responsible for the content you upload to WeLap. When you upload content, you grant WeLap a license to use, display, and distribute that content within the App. User-generated content may be visible to other WeLap users depending on your privacy settings.</p>
+
+                    <h2>Payments and Subscriptions</h2>
+                    <p>WeLap Premium subscriptions are processed through Apple In-App Purchase using StoreKit. We do not directly process or store payment information. Apple handles all payment processing securely. We use RevenueCat for subscription management and only receive information about your subscription status and purchase events.</p>
+
+                    <h2>Analytics, Advertising, and Crash Reporting</h2>
+                    
+                    <h3>Analytics</h3>
+                    <p>We may use analytics tools to understand how users interact with the App. This data is typically anonymized and does not directly identify individual users.</p>
+
+                    <h3>Advertising</h3>
+                    <p>The free version of WeLap may display advertisements through Google AdMob. You can opt out of personalized ads through your device settings. Advertisements are not displayed in WeLap Premium.</p>
+
+                    <h3>Crash Reporting</h3>
+                    <p>We may use crash reporting tools to collect information about app crashes and technical errors. Crash reports may include device information and app state but do not include personal data.</p>
+
+                    <h2>Third-Party Services</h2>
+                    
+                    <h3>Supabase</h3>
+                    <p>WeLap uses Supabase for backend infrastructure and database services. Your account information, garage data, session records, and user-generated content are stored on Supabase's secure servers.</p>
+
+                    <h3>RevenueCat</h3>
+                    <p>We use RevenueCat to manage subscriptions and in-app purchases. RevenueCat receives information about your subscription status but does not have access to your payment information.</p>
+
+                    <h3>Apple App Store and StoreKit</h3>
+                    <p>On iOS, WeLap uses Apple's StoreKit framework for in-app purchases and subscription management. Apple processes all payments and stores your subscription information.</p>
+
+                    <h3>Google AdMob</h3>
+                    <p>If you use the free version of WeLap, you may see advertisements served by Google AdMob. AdMob may collect advertising identifiers to serve personalized ads.</p>
+
+                    <h2>Data Retention</h2>
+                    <p>We retain your personal information for as long as your account is active. If you delete your account, we will delete or anonymize most of your personal data within a reasonable timeframe, except where legally required.</p>
+
+                    <h2>Account Deletion and Data Requests</h2>
+                    <p>You have the right to request access to your personal data, correct inaccurate information, delete your account, and export your data. To exercise these rights, contact us at <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a>. We will respond within 30 days.</p>
+
+                    <h2>Children's Privacy</h2>
+                    <p>WeLap is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware of such collection, we will promptly delete the information.</p>
+
+                    <h2>Security</h2>
+                    <p>WeLap implements security measures to protect your personal information, including encryption of data in transit and at rest, secure authentication, and regular security updates.</p>
+
+                    <h2>Changes to This Privacy Policy</h2>
+                    <p>We may update this Privacy Policy periodically. We will notify you of material changes by posting the updated policy in the App. Your continued use of the App following changes means you accept the new terms.</p>
+
+                    <h2>Contact Us</h2>
+                    <p>If you have questions about this Privacy Policy, contact us at:</p>
+                    <p><strong>Email:</strong> <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
+                    <p>We will respond to your inquiry within 30 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms Page -->
+        <div id="terms" class="page">
+            <div class="content-page">
+                <h1><span data-lang="fr">Conditions d'utilisation</span><span data-lang="en" style="display:none;">Terms of Service</span></h1>
+
+                <!-- FRENCH VERSION -->
+                <div data-lang="fr">
+                    <p>WeLap est une application destinée aux passionnés de circuit auto et moto.</p>
+
+                    <p><strong>Responsabilité sur circuit :</strong> L'utilisateur est responsable de son comportement sur circuit et doit respecter les règles de sécurité, les consignes des organisateurs, les lois en vigueur et les conditions d'accès aux circuits.</p>
+
+                    <p><strong>Précision des chronos :</strong> Les chronos GPS fournis par l'application sont donnés à titre indicatif et peuvent varier selon la qualité du signal GPS, l'appareil utilisé et les conditions d'utilisation.</p>
+
+                    <p><strong>Contenu utilisateur :</strong> L'utilisateur s'engage à ne pas publier de contenu illégal, dangereux, offensant, trompeur ou portant atteinte aux droits d'autrui.</p>
+
+                    <p><strong>Modération :</strong> WeLap peut supprimer un contenu ou un compte en cas d'usage abusif ou non conforme aux présentes conditions.</p>
+
+                    <p><strong>Questions :</strong> Pour toute question : <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
+                </div>
+
+                <!-- ENGLISH VERSION -->
+                <div data-lang="en" style="display:none;">
+                    <p>WeLap is a mobile application designed for car and motorcycle circuit enthusiasts.</p>
+
+                    <h2>User Responsibility</h2>
+                    <p><strong>Circuit Safety:</strong> You are solely responsible for your behavior at circuits and events. You must comply with all safety regulations, follow circuit officials' instructions, operate your vehicle safely and responsibly, comply with applicable laws, and respect each circuit's terms and conditions.</p>
+
+                    <h2>GPS Lap Times Disclaimer</h2>
+                    <p><strong>GPS Accuracy:</strong> GPS lap times provided by WeLap are for informational purposes only. Lap times may vary due to GPS signal quality, device differences, environmental factors, and app settings. WeLap does not guarantee accuracy. Official circuit times take precedence over WeLap recordings.</p>
+
+                    <h2>User-Generated Content</h2>
+                    <p>You are responsible for all content you upload, share, or post through WeLap. You agree not to post illegal, dangerous, offensive, misleading, or infringing content. When you post content, you grant WeLap a license to use, display, and distribute that content within the App.</p>
+
+                    <h2>Content Moderation</h2>
+                    <p>WeLap reserves the right to monitor, review, moderate, delete, or restrict access to user-generated content at any time without prior notice.</p>
+
+                    <h2>Account Suspension and Termination</h2>
+                    <p>We may suspend or terminate your account if you violate these Terms, engage in abusive behavior, post inappropriate content, attempt unauthorized access, or use the App fraudulently.</p>
+
+                    <h2>Limitation of Liability</h2>
+                    <p>To the fullest extent permitted by law, WeLap shall not be liable for injuries, accidents, damages from app use, circuit activities, loss of data, service interruptions, or technical failures.</p>
+
+                    <h2>Changes to Terms</h2>
+                    <p>We may update these Terms at any time. Continued use of the App signifies acceptance of new terms.</p>
+
+                    <h2>Contact</h2>
+                    <p>For questions about these Terms, contact us at <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="brand">WeLap</div>
+            <div class="slogan"><span class="slogan-word1">We drive.</span> <span class="slogan-word2">We track.</span> <span class="slogan-word3">We lap.</span></div>
+            
+            <div class="footer-links">
+                <a href="#" onclick="navigateTo('home'); return false;"><span data-lang="fr">Accueil</span><span data-lang="en" style="display:none;">Home</span></a>
+                <a href="#" onclick="navigateTo('support'); return false;">Support</a>
+                <a href="#" onclick="navigateTo('privacy'); return false;"><span data-lang="fr">Confidentialité</span><span data-lang="en" style="display:none;">Privacy</span></a>
+                <a href="#" onclick="navigateTo('terms'); return false;"><span data-lang="fr">Conditions</span><span data-lang="en" style="display:none;">Terms</span></a>
+                <a href="mailto:contact.welap@gmail.com">Contact</a>
+            </div>
+            
+            <div class="copyright"><span data-lang="fr">&copy; 2025 WeLap. Tous droits réservés.</span><span data-lang="en" style="display:none;">&copy; 2025 WeLap. All rights reserved.</span></div>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching
+        let currentLanguage = localStorage.getItem('welap-lang') || 'fr';
+        
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('welap-lang', lang);
+            
+            // Update language buttons
+            document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            
+            // Update all language elements
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+            });
+            
+            // Update page title
+            const page = document.querySelector('.page.active');
+            if (page) {
+                const title = page.querySelector('h1');
+                if (title) {
+                    document.title = title.textContent + ' - WeLap';
+                }
+            }
+        }
+        
+        // Initialize language
+        setLanguage(currentLanguage);
+        
+        function navigateTo(page) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            
+            const selectedPage = document.getElementById(page);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            const activeNav = document.querySelector(`.nav-item[data-page="${page}"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+            window.history.pushState({page}, '', `/#${page}`);
+        }
+        
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.page) {
+                navigateTo(e.state.page);
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.slice(1);
+            if (hash && document.getElementById(hash)) {
+                navigateTo(hash);
+            }
+        });
+    </script>
+</body>
+</html>
