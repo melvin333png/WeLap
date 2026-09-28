@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WeLap Pro — Chronos, fidélisation et expérience client pour kartings et circuits</title>
+<meta name="description" content="WeLap Pro prolonge l’expérience après la session : un QR code, et le résultat du pilote rejoint son profil WeLap. Centralisez les chronos, fidélisez vos clients. En développement.">
+<link rel="canonical" href="https://welap.vercel.app/pro/">
+<meta name="theme-color" content="#030304">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WeLap">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="WeLap Pro — Chronos, fidélisation et expérience client pour kartings et circuits">
+<meta property="og:description" content="WeLap Pro prolonge l’expérience après la session : un QR code, et le résultat du pilote rejoint son profil WeLap. Centralisez les chronos, fidélisez vos clients. En développement.">
+<meta property="og:url" content="https://welap.vercel.app/pro/">
+<meta property="og:image" content="https://welap.vercel.app/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="WeLap — Chaque tour compte.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WeLap Pro — Chronos, fidélisation et expérience client pour kartings et circuits">
+<meta name="twitter:description" content="WeLap Pro prolonge l’expérience après la session : un QR code, et le résultat du pilote rejoint son profil WeLap. Centralisez les chronos, fidélisez vos clients. En développement.">
+<meta name="twitter:image" content="https://welap.vercel.app/assets/img/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/BarlowCondensed-BoldItalic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Barlow-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/site.js" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "WeLap Pro", "serviceType": "Centralisation des chronos et fidélisation client pour kartings et circuits", "provider": {"@type": "Organization", "name": "WeLap", "url": "https://welap.vercel.app/"}, "areaServed": "FR", "url": "https://welap.vercel.app/pro/", "description": "Un QR code en fin de session permet au pilote de retrouver son résultat dans son profil WeLap : chrono, classement, historique et progression. En développement."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://welap.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "WeLap Pro", "item": "https://welap.vercel.app/pro/"}]}</script>
+<script src="/assets/js/pro.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="logo" href="/" aria-label="WeLap, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#ff6b35"/><path d="M6.5 9h3.6l1.6 9.2L15.4 9h3l1.2 9.2L23.4 9H27l-6.1 14.5h-3.1l-1.3-8.6-3.6 8.6H9.8z" fill="#030304"/></svg><span>WeLap</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    <nav class="nav__menu" id="menu" aria-label="Navigation principale">
+      <ul class="nav__links">
+        <li><a href="/#fonctionnalites">Fonctionnalités</a></li>
+        <li><a href="/#classements">Classements</a></li>
+        <li><a href="/#challenges">Challenges</a></li>
+        <li><a href="/pro/" aria-current="page">WeLap Pro</a></li>
+        <li><a href="/support/">Support</a></li>
+      </ul>
+      <a class="btn btn--primary nav__cta" href="/#telecharger">Télécharger WeLap</a>
+    </nav>
+  </div>
+</header>
+<main id="contenu">
+
+<section class="pro-hero" aria-labelledby="pro-hero-title">
+  <svg class="pro-hero__lines" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-40 620 C 300 560, 520 700, 820 560 S 1300 380, 1500 460"/>
+    <path class="o" d="M-40 680 C 320 610, 540 760, 860 610 S 1320 420, 1500 520"/>
+    <path d="M-40 740 C 340 660, 560 820, 900 660 S 1340 460, 1500 580"/>
+  </svg>
+  <div class="wrap pro-hero__grid">
+   <div>
+    <span class="status status--dev">WeLap Pro, en développement</span>
+    <h1 id="pro-hero-title">Faites vivre l’expérience après le dernier tour.</h1>
+    <p class="lead">Connectez l’expérience physique de votre karting ou de votre circuit à l’écosystème WeLap. Vos clients repartent avec leur chrono, leur classement et une bonne raison de revenir.</p>
+    <div class="btn-row"><a class="btn btn--primary" href="#demo">Voir la démonstration</a><a class="btn btn--ghost" href="mailto:contact.welap@gmail.com?subject=WeLap%20Pro%20%E2%80%93%20mon%20%C3%A9tablissement">Nous contacter</a></div>
+    <p class="small" style="margin-top:2rem">Pour les kartings, circuits, organisateurs et professionnels de l’auto et de la moto.</p>
+   </div>
+   <div class="pro-visual" aria-hidden="true">
+     <div class="pro-visual__ticket">
+       <p class="pro-visual__head">Session terminée</p>
+       <p class="pro-visual__row"><span>P2, kart 7</span><b>48.551</b></p>
+       <div class="pro-visual__qr"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM13 0h1v1h-1zM16 0h1v1h-1zM19 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM19 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM14 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM17 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM0 9h1v1h-1zM2 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM22 9h1v1h-1zM25 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM17 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM12 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM23 11h1v1h-1zM27 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM11 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM22 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM0 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM18 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM25 13h1v1h-1zM28 13h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM12 14h1v1h-1zM14 14h1v1h-1zM18 14h1v1h-1zM21 14h1v1h-1zM24 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM18 17h1v1h-1zM20 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM0 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM1 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM0 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM14 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM11 26h1v1h-1zM14 26h1v1h-1zM17 26h1v1h-1zM20 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM20 27h1v1h-1zM24 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1z" fill="currentColor"/></svg></div>
+     </div>
+     <svg class="pro-visual__link" viewBox="0 0 160 120"><path d="M4 100 C 60 100, 90 20, 156 20"/></svg>
+     <div class="phone pro-visual__phone"><div class="phone__screen"><div class="screen is-active">
+       <div class="record"><span class="record__badge">Nouveau record personnel</span></div>
+       <div class="ui-card" style="text-align:center"><p class="ui-label">Karting démo</p><p class="ui-big orange">48.551</p><p class="ui-mid ui-delta--neg" style="margin-top:6px">−0.769</p></div>
+       <div class="ui-card ui-row"><span class="ui-label">Classement du mois</span><span class="ui-mid">4e</span></div>
+       <div class="ui-card ui-row"><span class="ui-label">Visites</span><span class="ui-mid">3</span></div>
+     </div></div></div>
+   </div>
+  </div>
+</section>
+
+<section class="section section--anth" aria-labelledby="problem-title">
+  <div class="wrap problem">
+    <div>
+      <h2 id="problem-title">Aujourd’hui, le chrono s’arrête au comptoir.</h2>
+      <p class="lead" style="margin-top:1.5rem">Le client roule, reçoit son résultat, puis repart. Le temps finit oublié dans une poche ou sur un écran qu’il ne reverra pas. Rien ne le relie à sa prochaine visite.</p>
+    </div>
+    <div>
+      <figure class="sheet" data-reveal>
+        <h3>Résultats, session 14 h 20</h3>
+        <table><tbody>
+          <tr><td>P1, kart 3</td><td>48.218</td></tr>
+          <tr><td>P2, kart 7</td><td>48.551</td></tr>
+          <tr><td>P3, kart 12</td><td>49.004</td></tr>
+          <tr><td>P4, kart 5</td><td>49.380</td></tr>
+        </tbody></table>
+      </figure>
+      <p class="sheet__caption">Exemple générique de feuille de résultats.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fonctionnement" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="how-title">Comment fonctionne WeLap Pro</h2>
+      <p class="lead">Un QR code à la fin de la session, et cinq étapes simples côté pilote.</p>
+    </div>
+    <ol class="steps">
+      <li><b>1</b><h3>Roule</h3><p>Le client réalise sa session sur votre piste, avec votre chronométrage habituel.</p></li>
+      <li><b>2</b><h3>Scanne</h3><p>Un QR code lui est proposé à la fin de la session.</p></li>
+      <li><b>3</b><h3>Récupère</h3><p>Son résultat rejoint son profil WeLap : temps, position, date, piste, kart si disponible.</p></li>
+      <li><b>4</b><h3>Compare</h3><p>Il retrouve son classement, son historique et sa progression.</p></li>
+      <li><b>5</b><h3>Reviens</h3><p>Il a désormais un chrono à battre, chez vous.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tight" id="demo" aria-labelledby="demo-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="status status--demo">Démonstration, données fictives</span>
+      <h2 id="demo-title" style="margin-top:1rem">Essayez le parcours du pilote.</h2>
+    </div>
+    <div class="demo" data-demo>
+      <div>
+        <div class="demo__board">
+          <div class="demo__board-head"><b>Session terminée</b><span class="small">Karting démo, 14 h 20</span></div>
+          <ol class="demo__rows">
+            <li><span class="p">P1</span><span>Kart 3</span><span class="t">48.218</span></li>
+            <li class="is-you"><span class="p">P2</span><span>Kart 7, vous</span><span class="t">48.551</span></li>
+            <li><span class="p">P3</span><span>Kart 12</span><span class="t">49.004</span></li>
+          </ol>
+          <div class="demo__scan">
+            <svg viewBox="0 0 29 29" shape-rendering="crispEdges" role="img" aria-label="QR code de démonstration"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM13 0h1v1h-1zM16 0h1v1h-1zM19 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM19 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM14 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM17 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM0 9h1v1h-1zM2 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM22 9h1v1h-1zM25 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM17 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM12 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM23 11h1v1h-1zM27 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM11 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM22 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM0 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM18 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM25 13h1v1h-1zM28 13h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM12 14h1v1h-1zM14 14h1v1h-1zM18 14h1v1h-1zM21 14h1v1h-1zM24 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM18 17h1v1h-1zM20 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM0 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM1 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM0 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM14 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM11 26h1v1h-1zM14 26h1v1h-1zM17 26h1v1h-1zM20 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM20 27h1v1h-1zM24 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1z" fill="currentColor"/></svg>
+            <div><p>Scannez pour enregistrer votre chrono</p><button type="button" class="btn" data-demo-start>Simuler le scan</button></div>
+          </div>
+        </div>
+        <div class="demo__progress" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+        <p class="muted" style="margin-top:1rem" data-demo-caption aria-live="polite">Appuyez sur « Simuler le scan » pour voir ce que vit le pilote.</p>
+        <div class="demo__controls"><button type="button" class="btn btn--ghost" data-demo-replay hidden>Rejouer</button></div>
+      </div>
+      <div class="demo__phone"><div class="phone"><div class="phone__screen">
+  <div class="screen screen--scan is-active" data-demo-screen="0">
+    <div><p class="screen__title">Scanner</p><p class="screen__sub">Visez le QR code de fin de session</p></div>
+    <div class="scan-frame"><svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM13 0h1v1h-1zM16 0h1v1h-1zM19 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM19 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM14 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM17 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM0 9h1v1h-1zM2 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM22 9h1v1h-1zM25 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM17 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM12 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM23 11h1v1h-1zM27 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM11 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM22 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM0 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM18 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM25 13h1v1h-1zM28 13h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM12 14h1v1h-1zM14 14h1v1h-1zM18 14h1v1h-1zM21 14h1v1h-1zM24 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM18 17h1v1h-1zM20 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM0 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM24 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM1 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM0 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM14 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM11 26h1v1h-1zM14 26h1v1h-1zM17 26h1v1h-1zM20 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM20 27h1v1h-1zM24 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1z" fill="#f4f4f1"/></svg></div>
+  </div>
+  <div class="screen" data-demo-screen="1">
+    <div><p class="screen__title">Résultat trouvé</p><p class="screen__sub">Karting démo, aujourd’hui</p></div>
+    <div class="ui-card"><p class="ui-label">Votre meilleur tour</p><p class="ui-big">48.551</p></div>
+    <div class="ui-card"><ul class="ui-list">
+      <li><span class="pos">P</span><span>Position</span><span class="t">2e / 8</span></li>
+      <li><span class="pos">K</span><span>Kart</span><span class="t">n° 7</span></li>
+      <li><span class="pos">S</span><span>Session</span><span class="t">14 tours</span></li>
+    </ul></div>
+    <div class="ui-card ui-row" style="border:1px solid rgba(61,220,132,.35)"><span>Ajouté à votre profil</span><span class="ui-delta--neg">✓</span></div>
+  </div>
+  <div class="screen" data-demo-screen="2">
+    <div class="record"><span class="record__badge">Nouveau record personnel</span></div>
+    <div class="ui-card" style="text-align:center"><p class="ui-label">Karting démo</p><p class="ui-big orange">48.551</p><p class="ui-mid ui-delta--neg" style="margin-top:6px">−0.769</p></div>
+    <div class="ui-card"><div class="ui-row"><span class="ui-label">Votre progression</span><span class="ui-label">3 visites</span></div><svg viewBox="0 0 200 60" style="width:100%;height:60px" aria-hidden="true"><polyline points="0,14 50,22 100,30 150,40 200,52" fill="none" stroke="#ff6b35" stroke-width="3" stroke-linejoin="round"/><circle cx="200" cy="52" r="5" fill="#ff6b35"/></svg>
+    <div class="ui-row"><span class="screen__sub">49.320</span><span class="screen__sub">49.004</span><span class="screen__sub orange">48.551</span></div></div>
+  </div>
+  <div class="screen" data-demo-screen="3">
+    <div><p class="screen__title">Classement</p><p class="screen__sub">Karting démo, ce mois-ci</p></div>
+    <ul class="ui-list">
+      <li><span class="pos">1</span><span>@apex.hunter</span><span class="t">47.902</span></li>
+      <li><span class="pos">2</span><span>@kerb_rider</span><span class="t">48.107</span></li>
+      <li><span class="pos">3</span><span>@slipangle</span><span class="t">48.330</span></li>
+      <li class="is-me"><span class="pos">4</span><span>Vous</span><span class="t">48.551</span></li>
+      <li><span class="pos">5</span><span>@flat_out</span><span class="t">48.690</span></li>
+    </ul>
+    <div class="ui-card"><p class="ui-label">Prochain objectif</p><p class="ui-mid">Podium : −0.222</p><div class="ui-bar" style="margin-top:8px"><i style="width:78%"></i></div></div>
+  </div>
+</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--anth" aria-labelledby="loop-pro-title">
+  <div class="wrap loop" data-loop>
+    <div><svg class="loop__svg" viewBox="-40 -10 600 540" role="img" aria-label="Boucle : physique, digital, engagement, retour sur piste">
+<circle class="loop__ring" cx="260" cy="260" r="180"/>
+<path class="loop__progress" d="M 260 80 A 180 180 0 1 1 259.99 80"/>
+<g class="loop__node"><circle cx="260.0" cy="80.0" r="22"/><text class="n" x="260.0" y="86.0" text-anchor="middle">1</text><text x="260.0" y="38.0" text-anchor="middle">Physique</text></g>
+<g class="loop__node"><circle cx="440.0" cy="260.0" r="22"/><text class="n" x="440.0" y="266.0" text-anchor="middle">2</text><text x="486.0" y="267.0" text-anchor="start">Digital</text></g>
+<g class="loop__node"><circle cx="260.0" cy="440.0" r="22"/><text class="n" x="260.0" y="446.0" text-anchor="middle">3</text><text x="260.0" y="487.0" text-anchor="middle">Engagement</text></g>
+<g class="loop__node"><circle cx="80.0" cy="260.0" r="22"/><text class="n" x="80.0" y="266.0" text-anchor="middle">4</text><text x="34.0" y="267.0" text-anchor="end">Retour</text></g>
+<text class="loop__center-title" x="260" y="256" text-anchor="middle">La session</text>
+<text class="loop__center-sub" x="260" y="286" text-anchor="middle">continue après la piste</text>
+</svg></div>
+    <div>
+      <h2 id="loop-pro-title">Physique. Digital. Physique.</h2>
+      <p class="lead" style="margin:1.5rem 0 2rem">La session ne s’arrête plus à la sortie de piste. Elle continue dans WeLap, jusqu’à la prochaine visite.</p>
+      <ol class="loop__list">
+        <li><b>Physique</b>Le pilote vient rouler chez vous.</li>
+        <li><b>Digital</b>Sa performance rejoint WeLap.</li>
+        <li><b>Engagement</b>Classement, progression, challenges, historique.</li>
+        <li><b>Retour sur piste</b>Il revient pour faire mieux.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="values-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="values-title">Transformez une session en relation durable.</h2>
+      <p class="lead">Ce que WeLap Pro apporte à votre établissement, et où en est chaque brique aujourd’hui.</p>
+    </div>
+    <div class="values">
+      <article><span class="status status--dev">En développement</span><h3>Centralisation des performances</h3><p>Chaque client repart avec un historique, plus seulement une feuille de résultats ponctuelle.</p></article><article><span class="status status--dev">En développement</span><h3>Fidélisation</h3><p>Le pilote retrouve son chrono et revient pour le battre. Le dernier tour devient le début du suivant.</p></article><article><span class="status status--live">Disponible dans WeLap</span><h3>Engagement</h3><p>Classements, progression et challenges donnent une raison concrète de reprendre la piste.</p></article><article><span class="status status--dev">En développement</span><h3>Acquisition digitale</h3><p>Le client rejoint WeLap depuis votre piste, au moment où il est le plus motivé.</p></article><article><span class="status status--dev">En développement</span><h3>Expérience moderne</h3><p>Le QR code relie l’expérience physique au smartphone, sans matériel supplémentaire pour le client.</p></article><article><span class="status status--concept">Concept</span><h3>Communauté d’établissement</h3><p>Des classements et des expériences propres à votre piste ou à votre événement.</p></article>
+      <article class="wide">
+        <div>
+          <span class="status status--concept">Possibilité future</span>
+          <h3 style="margin:.9rem 0">Données et statistiques</h3>
+          <p>À terme, une interface pour comprendre l’activité de votre communauté : retours de clients, records battus, participation aux challenges. Ce tableau de bord n’existe pas encore.</p>
+        </div>
+        <div class="dash" role="img" aria-label="Concept d’interface de tableau de bord, sans données réelles">
+          <div class="dash__label"><span class="status status--concept">Concept d’interface</span></div>
+          <div class="dash__tile"><span>Clients revenus</span><div class="skel"></div></div>
+          <div class="dash__tile"><span>Résultats importés</span><div class="skel"></div></div>
+          <div class="dash__tile"><span>Records battus</span><div class="skel"></div></div>
+          <svg class="dash__chart" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="dashGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b35" stop-opacity=".3"/><stop offset="1" stop-color="#ff6b35" stop-opacity="0"/></linearGradient></defs>
+            <polygon class="area" points="0,90 100,80 200,86 300,60 400,64 500,40 600,34 600,120 0,120"/>
+            <polyline points="0,90 100,80 200,86 300,60 400,64 500,40 600,34"/>
+          </svg>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--anth" aria-labelledby="chal-pro-title">
+  <div class="wrap challenge">
+    <div>
+      <h2 id="chal-pro-title">Vos challenges. Votre piste.</h2>
+      <p class="lead" style="margin-top:1.5rem">Les challenges existent déjà dans WeLap. L’idée de WeLap Pro : vous permettre d’en lancer autour de votre établissement pour animer votre clientèle toute l’année.</p>
+      <div class="challenge__ideas">
+        <div><b>Meilleur chrono du mois</b><span>Un classement qui repart chaque mois.</span></div>
+        <div><b>Challenge d’été</b><span>Une saison pour signer le meilleur tour.</span></div>
+        <div><b>Objectif sous 50 secondes</b><span>Un temps cible sur votre piste.</span></div>
+        <div><b>Classement d’événement</b><span>Anniversaire, séminaire, soirée.</span></div>
+      </div>
+    </div>
+    <div class="challenge__card">
+      <div class="ui-row"><span class="status status--concept">Concept, établissement</span><span class="small">Karting démo</span></div>
+      <p class="challenge__goal">Meilleur chrono du mois</p>
+      <p class="muted" style="margin-bottom:1.25rem">Le classement évolue à chaque résultat importé.</p>
+      <ul class="ui-list" style="font-size:1rem">
+        <li><span class="pos">1</span><span>@apex.hunter</span><span class="t">47.902</span></li>
+        <li><span class="pos">2</span><span>@kerb_rider</span><span class="t">48.107</span></li>
+        <li class="is-me"><span class="pos">3</span><span>Votre client</span><span class="t">48.330</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="journey-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="journey-title">Une expérience pilote continue.</h2>
+      <p class="lead">WeLap ne se contente pas de mesurer le temps. L’objectif est de relier chaque moment du parcours pilote.</p>
+    </div>
+    <ol class="journey">
+      <li><h3>Avant</h3><p>Découverte de la piste, préparation, envie de se mesurer.</p></li>
+      <li><h3>Pendant</h3><p>La session, le chronométrage, la performance.</p></li>
+      <li><h3>Après</h3><p>Historique, classement, comparaison, challenge, partage, progression.</p></li>
+      <li><h3>Et ensuite</h3><p>Le retour sur votre piste, avec un chrono à battre.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--anth" id="contact" aria-labelledby="contact-title">
+  <div class="wrap contact-card">
+    <div>
+      <h2 id="contact-title">Parlons de votre piste.</h2>
+      <p class="lead">WeLap Pro est en cours de construction. Si vous gérez un karting, un circuit ou des événements, nous aimerions construire les premières intégrations avec vous.</p>
+    </div>
+    <div class="btn-row"><a class="btn btn--primary" href="mailto:contact.welap@gmail.com?subject=WeLap%20Pro%20%E2%80%93%20mon%20%C3%A9tablissement">Nous contacter</a><a class="btn btn--ghost" href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="logo" href="/" aria-label="WeLap, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#ff6b35"/><path d="M6.5 9h3.6l1.6 9.2L15.4 9h3l1.2 9.2L23.4 9H27l-6.1 14.5h-3.1l-1.3-8.6-3.6 8.6H9.8z" fill="#030304"/></svg><span>WeLap</span></a>
+        <p class="footer__motto">We drive. We track. We lap.</p>
+      </div>
+      <div>
+        <h2>Pilotes</h2>
+        <ul>
+          <li><a href="/#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="/#classements">Classements</a></li>
+          <li><a href="/#challenges">Challenges</a></li>
+          <li><a href="/#telecharger">Télécharger</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Professionnels</h2>
+        <ul>
+          <li><a href="/pro/">WeLap Pro</a></li>
+          <li><a href="/pro/#demo">Démonstration QR code</a></li>
+          <li><a href="mailto:contact.welap@gmail.com?subject=WeLap%20Pro">Nous contacter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Informations</h2>
+        <ul>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/confidentialite/">Confidentialité</a></li>
+          <li><a href="/conditions/">Conditions d’utilisation</a></li>
+          <li><a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom small">
+      <span>© <span data-year>2026</span> WeLap. Tous droits réservés.</span>
+      <span>Les chronos GPS sont indicatifs. Les temps officiels du circuit font foi.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,878 +1,398 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="WeLap - GPS lap timing, garage management, and community for motorsport enthusiasts">
-    <meta name="theme-color" content="#000000">
-    <title>WeLap - We drive. We track. We lap.</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --color-bg: #0a0a0a;
-            --color-bg-alt: #141414;
-            --color-bg-card: #1a1a1a;
-            --color-text: #ffffff;
-            --color-text-secondary: #a0a0a0;
-            --color-text-muted: #808080;
-            --color-orange: #ff6b35;
-            --color-orange-light: #ff8c4a;
-            --color-pink: #ff1744;
-            --color-magenta: #e91e63;
-            --color-purple: #9c27b0;
-            --color-accent: linear-gradient(135deg, #ff6b35 0%, #e91e63 50%, #9c27b0 100%);
-            --border-radius: 12px;
-            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            background-attachment: fixed;
-            color: var(--color-text);
-            font-family: var(--font-family);
-            line-height: 1.6;
-            font-weight: 400;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            animation: slideDown 0.6s ease;
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-        
-        .logo-container:hover {
-            transform: scale(1.05);
-        }
-        
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--color-accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
-            color: white;
-            font-style: italic;
-            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
-        }
-        
-        .logo-text {
-            font-size: 22px;
-            font-weight: 700;
-            font-style: italic;
-            background: var(--color-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-        
-        .nav-center {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-orange);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a.active,
-        .nav-links a:hover {
-            color: var(--color-orange);
-        }
-        
-        .nav-links a.active::after,
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .lang-selector {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-        }
-        
-        .lang-btn {
-            background: transparent;
-            border: 2px solid rgba(255, 107, 53, 0.2);
-            color: var(--color-text-secondary);
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .lang-btn.active {
-            background: var(--color-accent);
-            border-color: var(--color-orange);
-            color: white;
-        }
-        
-        .lang-btn:hover {
-            border-color: var(--color-orange);
-            color: var(--color-orange);
-        }
-        
-        @media (max-width: 968px) {
-            nav {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            
-            .nav-center {
-                width: 100%;
-                order: 3;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-                font-size: 13px;
-            }
-            
-            .lang-selector {
-                order: 2;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            nav {
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .logo-text {
-                font-size: 18px;
-            }
-        }
-        
-        /* Pages */
-        .page {
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Main content */
-        main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            min-height: calc(100vh - 300px);
-        }
-        
-        /* Home page */
-        .hero {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInUp 0.8s ease;
-        }
-        
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 800;
-            font-style: italic;
-            margin-bottom: 1.2rem;
-            background: var(--color-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -2px;
-            line-height: 1.1;
-        }
-        
-        .hero .subtitle {
-            font-size: 22px;
-            color: var(--color-text-secondary);
-            margin-bottom: 1.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.4;
-        }
-        
-        .hero .description {
-            font-size: 16px;
-            color: var(--color-text-muted);
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.9;
-        }
-        
-        .slogan {
-            font-size: 20px;
-            font-style: italic;
-            margin-top: 2.5rem;
-            letter-spacing: 1px;
-        }
-        
-        .slogan-word1 { color: var(--color-text); }
-        .slogan-word2 { color: var(--color-orange); }
-        .slogan-word3 { color: var(--color-magenta); }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        
-        .feature {
-            background: var(--color-bg-card);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 107, 53, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .feature:hover::before {
-            left: 100%;
-        }
-        
-        .feature:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 107, 53, 0.3);
-            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.15);
-        }
-        
-        .feature h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--color-text);
-        }
-        
-        .feature p {
-            font-size: 15px;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-        
-        /* Content pages */
-        .content-page {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .content-page h1 {
-            font-size: 56px;
-            font-weight: 800;
-            margin-bottom: 2.5rem;
-            background: var(--color-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
-        
-        .content-page h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 2.5rem;
-            margin-bottom: 1.2rem;
-            color: var(--color-orange);
-        }
-        
-        .content-page h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-            color: var(--color-text);
-        }
-        
-        .content-page p {
-            margin-bottom: 1.2rem;
-            color: var(--color-text-secondary);
-            line-height: 1.95;
-        }
-        
-        .content-page ul, .content-page ol {
-            margin: 1.5rem 0 1.5rem 2rem;
-            color: var(--color-text-secondary);
-            line-height: 1.95;
-        }
-        
-        .content-page li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .content-page a {
-            color: var(--color-orange);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .content-page a:hover {
-            color: var(--color-orange-light);
-            text-decoration: underline;
-        }
-        
-        .info-box {
-            background: var(--color-bg-card);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--color-orange);
-            margin: 2rem 0;
-        }
-        
-        .last-updated {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-            margin-bottom: 2.5rem;
-            font-style: italic;
-        }
-        
-        /* Footer */
-        footer {
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 107, 53, 0.1);
-            padding: 4rem 2rem;
-            margin-top: 6rem;
-        }
-        
-        footer .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        footer .brand {
-            font-size: 28px;
-            font-weight: 800;
-            font-style: italic;
-            background: var(--color-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.2rem;
-            letter-spacing: -1px;
-        }
-        
-        footer .slogan {
-            font-size: 16px;
-            color: var(--color-text-secondary);
-            margin-bottom: 2rem;
-            font-style: italic;
-            letter-spacing: 0.5px;
-        }
-        
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-            font-size: 14px;
-        }
-        
-        footer .footer-links a {
-            color: var(--color-orange);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        footer .footer-links a:hover {
-            color: var(--color-orange-light);
-            text-decoration: underline;
-        }
-        
-        footer .copyright {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.3);
-            margin-top: 2.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            main {
-                padding: 2rem 1.5rem;
-            }
-            
-            .hero h1 {
-                font-size: 42px;
-            }
-            
-            .hero .subtitle {
-                font-size: 18px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .content-page h1 {
-                font-size: 36px;
-            }
-            
-            .content-page h2 {
-                font-size: 20px;
-            }
-            
-            footer {
-                padding: 2.5rem 1.5rem;
-            }
-            
-            footer .footer-links {
-                gap: 1rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WeLap — Chronométrage GPS circuit auto et moto, classements et challenges</title>
+<meta name="description" content="Chronométrez vos tours sur circuit en auto ou en moto, retrouvez vos sessions, comparez-vous dans les classements et relevez des challenges. Tous vos chronos au même endroit.">
+<link rel="canonical" href="https://welap.vercel.app/">
+<meta name="theme-color" content="#030304">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WeLap">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="WeLap — Chronométrage GPS circuit auto et moto, classements et challenges">
+<meta property="og:description" content="Chronométrez vos tours sur circuit en auto ou en moto, retrouvez vos sessions, comparez-vous dans les classements et relevez des challenges. Tous vos chronos au même endroit.">
+<meta property="og:url" content="https://welap.vercel.app/">
+<meta property="og:image" content="https://welap.vercel.app/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="WeLap — Chaque tour compte.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WeLap — Chronométrage GPS circuit auto et moto, classements et challenges">
+<meta name="twitter:description" content="Chronométrez vos tours sur circuit en auto ou en moto, retrouvez vos sessions, comparez-vous dans les classements et relevez des challenges. Tous vos chronos au même endroit.">
+<meta name="twitter:image" content="https://welap.vercel.app/assets/img/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/BarlowCondensed-BoldItalic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Barlow-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/site.js" defer></script>
+<script>(function(){var m={"#support":"/support/","#privacy":"/confidentialite/","#terms":"/conditions/"};if(m[location.hash])location.replace(m[location.hash]);})();</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "WeLap", "url": "https://welap.vercel.app/", "logo": "https://welap.vercel.app/apple-touch-icon.png", "email": "contact.welap@gmail.com", "sameAs": ["https://apps.apple.com/fr/app/welap/id6781696001", "https://play.google.com/store/apps/details?id=com.welap.app"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "WeLap", "url": "https://welap.vercel.app/", "inLanguage": "fr-FR"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "WeLap", "applicationCategory": "SportsApplication", "operatingSystem": "iOS, Android", "downloadUrl": ["https://apps.apple.com/fr/app/welap/id6781696001", "https://play.google.com/store/apps/details?id=com.welap.app"], "installUrl": "https://apps.apple.com/fr/app/welap/id6781696001", "description": "Chronométrage GPS sur circuit auto et moto, sessions, classements, garage, communauté et challenges.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment fonctionne le chronométrage GPS de WeLap ?", "acceptedAnswer": {"@type": "Answer", "text": "Vous lancez une session depuis l’application avant de rouler. Le GPS de votre téléphone enregistre vos tours automatiquement : meilleur tour, dernier tour, delta et historique complet de la session. Les chronos GPS restent indicatifs et peuvent varier selon le signal et l’appareil : les temps officiels du circuit font foi."}}, {"@type": "Question", "name": "WeLap fonctionne-t-il en moto comme en auto ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. WeLap est pensé pour les pilotes auto et moto sur circuit. Les classements distinguent les deux catégories pour que chacun se compare à des performances comparables."}}, {"@type": "Question", "name": "Est-ce une application de trackday ?", "acceptedAnswer": {"@type": "Answer", "text": "WeLap accompagne vos journées circuit de bout en bout : découverte des circuits et des événements, chronométrage pendant la session, puis historique, classements et challenges une fois rentré au paddock."}}, {"@type": "Question", "name": "Et le karting ?", "acceptedAnswer": {"@type": "Answer", "text": "Le chronométrage karting passe par les systèmes de chaque établissement. Avec WeLap Pro, actuellement en développement, un karting pourra proposer un QR code en fin de session pour que le pilote retrouve son résultat dans son profil WeLap."}}, {"@type": "Question", "name": "Comment fonctionnent les challenges ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque mois, des challenges sont proposés sur certains circuits. Vous roulez sur le circuit concerné, votre meilleur chrono entre au classement du challenge et vous suivez son évolution jusqu’à la fin du mois."}}, {"@type": "Question", "name": "WeLap est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "WeLap se télécharge gratuitement sur l’App Store et Google Play. Un abonnement Premium optionnel est proposé dans l’application, notamment pour profiter de WeLap sans publicité."}}]}</script>
+<script src="/assets/js/home.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo-container" onclick="navigateTo('home'); return false;">
-                <div class="logo-icon">W</div>
-                <div class="logo-text">WeLap</div>
-            </div>
-            
-            <div class="nav-center">
-                <ul class="nav-links">
-                    <li><a href="#" class="nav-item active" data-page="home" onclick="navigateTo('home'); return false;"><span data-lang="fr">Accueil</span><span data-lang="en" style="display:none;">Home</span></a></li>
-                    <li><a href="#" class="nav-item" data-page="support" onclick="navigateTo('support'); return false;"><span data-lang="fr">Support</span><span data-lang="en" style="display:none;">Support</span></a></li>
-                    <li><a href="#" class="nav-item" data-page="privacy" onclick="navigateTo('privacy'); return false;"><span data-lang="fr">Confidentialité</span><span data-lang="en" style="display:none;">Privacy</span></a></li>
-                    <li><a href="#" class="nav-item" data-page="terms" onclick="navigateTo('terms'); return false;"><span data-lang="fr">Conditions</span><span data-lang="en" style="display:none;">Terms</span></a></li>
-                </ul>
-                
-                <div class="lang-selector">
-                    <button class="lang-btn active" id="lang-fr" onclick="setLanguage('fr'); return false;">🇫🇷</button>
-                    <button class="lang-btn" id="lang-en" onclick="setLanguage('en'); return false;">🇬🇧</button>
-                </div>
-            </div>
-        </nav>
-    </header>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="logo" href="/" aria-label="WeLap, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#ff6b35"/><path d="M6.5 9h3.6l1.6 9.2L15.4 9h3l1.2 9.2L23.4 9H27l-6.1 14.5h-3.1l-1.3-8.6-3.6 8.6H9.8z" fill="#030304"/></svg><span>WeLap</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    <nav class="nav__menu" id="menu" aria-label="Navigation principale">
+      <ul class="nav__links">
+        <li><a href="/#fonctionnalites">Fonctionnalités</a></li>
+        <li><a href="/#classements">Classements</a></li>
+        <li><a href="/#challenges">Challenges</a></li>
+        <li><a href="/pro/">WeLap Pro</a></li>
+        <li><a href="/support/">Support</a></li>
+      </ul>
+      <a class="btn btn--primary nav__cta" href="/#telecharger">Télécharger WeLap</a>
+    </nav>
+  </div>
+</header>
+<main id="contenu">
 
-    <main>
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <div class="hero">
-                <h1>WeLap</h1>
-                <p class="subtitle"><span data-lang="fr">Chronos, garage et communauté pour les passionnés de circuit auto et moto.</span><span data-lang="en" style="display:none;">GPS lap timing, garage management, and community for motorsport enthusiasts</span></p>
-                <p class="description"><span data-lang="fr">WeLap permet aux pilotes amateurs de suivre leurs chronos GPS, comparer leurs performances, gérer leur garage et partager leurs sessions avec une communauté de passionnés.</span><span data-lang="en" style="display:none;">WeLap empowers amateur drivers to track their GPS lap times, compare performance, manage their garage, and share sessions with a passionate community.</span></p>
-                <div class="slogan">
-                    <span class="slogan-word1">We drive.</span>
-                    <span class="slogan-word2">We track.</span>
-                    <span class="slogan-word3">We lap.</span>
-                </div>
-            </div>
-
-            <div class="features">
-                <div class="feature">
-                    <h3><span data-lang="fr">Chronométrage GPS</span><span data-lang="en" style="display:none;">GPS Lap Timing</span></h3>
-                    <p><span data-lang="fr">Suivez précisément vos chronos sur tous les circuits avec la technologie GPS intégrée.</span><span data-lang="en" style="display:none;">Precisely track your lap times on all circuits with integrated GPS technology.</span></p>
-                </div>
-                <div class="feature">
-                    <h3><span data-lang="fr">Classements par circuit</span><span data-lang="en" style="display:none;">Circuit Leaderboards</span></h3>
-                    <p><span data-lang="fr">Comparez vos performances avec les autres pilotes sur chaque circuit.</span><span data-lang="en" style="display:none;">Compare your performance with other drivers on every circuit.</span></p>
-                </div>
-                <div class="feature">
-                    <h3><span data-lang="fr">Garage personnel</span><span data-lang="en" style="display:none;">Personal Garage</span></h3>
-                    <p><span data-lang="fr">Organisez et gérez tous vos véhicules en un seul endroit.</span><span data-lang="en" style="display:none;">Organize and manage all your vehicles in one place.</span></p>
-                </div>
-                <div class="feature">
-                    <h3><span data-lang="fr">Profil pilote</span><span data-lang="en" style="display:none;">Driver Profile</span></h3>
-                    <p><span data-lang="fr">Construisez votre historique et montrez votre progression au fil du temps.</span><span data-lang="en" style="display:none;">Build your history and showcase your progression over time.</span></p>
-                </div>
-                <div class="feature">
-                    <h3><span data-lang="fr">Communauté</span><span data-lang="en" style="display:none;">Community</span></h3>
-                    <p><span data-lang="fr">Partagez vos sessions, publications et connectez-vous avec d'autres passionnés.</span><span data-lang="en" style="display:none;">Share sessions, post content, and connect with fellow enthusiasts.</span></p>
-                </div>
-                <div class="feature">
-                    <h3><span data-lang="fr">Circuits et événements</span><span data-lang="en" style="display:none;">Circuits & Events</span></h3>
-                    <p><span data-lang="fr">Découvrez de nouveaux circuits et événements près de chez vous.</span><span data-lang="en" style="display:none;">Discover new circuits and events in your area.</span></p>
-                </div>
-            </div>
+<section class="hero" data-hero aria-labelledby="hero-title">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <h1 id="hero-title">Chaque tour compte.</h1>
+      <p class="hero__tagline">Chronométrez. Comparez. Progressez.</p>
+      <p class="lead">WeLap suit vos performances sur circuit, en auto comme en moto, et les réunit dans un seul profil : chronos, sessions, classements, garage et challenges.</p>
+      <div class="hero__actions">
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#telecharger">Télécharger WeLap</a>
+          <a class="btn btn--ghost" href="/pro/">Découvrir WeLap Pro</a>
         </div>
-
-        <!-- Support Page -->
-        <div id="support" class="page">
-            <div class="content-page">
-                <h1><span data-lang="fr">Support WeLap</span><span data-lang="en" style="display:none;">WeLap Support</span></h1>
-                
-                <div class="info-box">
-                    <p><span data-lang="fr">Besoin d'aide avec WeLap ? Contactez-nous pour toute question liée à votre compte, vos chronos, votre garage, vos publications, votre abonnement Premium ou la suppression de vos données.</span><span data-lang="en" style="display:none;">Need help with WeLap? Contact us for any questions about your account, lap times, garage, posts, subscriptions, or data deletion.</span></p>
-                </div>
-
-                <h2><span data-lang="fr">Nous contacter</span><span data-lang="en" style="display:none;">Contact Us</span></h2>
-                <p><strong><span data-lang="fr">Email :</span><span data-lang="en" style="display:none;">Email:</span></strong> <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
-                <p><strong><span data-lang="fr">Téléphone :</span><span data-lang="en" style="display:none;">Phone:</span></strong> <a href="tel:+33616380317">06 16 38 03 17</a></p>
-
-                <div class="info-box">
-                    <h2 style="margin-top: 0; color: var(--color-orange);"><span data-lang="fr">Conseils pour nous contacter</span><span data-lang="en" style="display:none;">Tips for Contacting Us</span></h2>
-                    <p style="margin-bottom: 0;"><span data-lang="fr">Pour une réponse plus rapide, décrivez votre problème en détail et ajoutez une capture d'écran si possible.</span><span data-lang="en" style="display:none;">For faster response, describe your issue in detail and include a screenshot if possible.</span></p>
-                </div>
-            </div>
+        <div class="stores">
+  <a class="store" data-store="ios" href="https://apps.apple.com/fr/app/welap/id6781696001" rel="noopener" aria-label="Télécharger WeLap dans l’App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><strong>App Store</strong></span></a>
+  <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.welap.app" rel="noopener" aria-label="Télécharger WeLap sur Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00c7ff" d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#ffce00" d="m16.7 15.3-3.3-3.3 3.3-3.3 3.8 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="M16.7 15.3 13.4 12l-9.8 9.7c.4.2.9.2 1.4-.1z"/><path fill="#00e676" d="M16.7 8.7 5 2.4c-.5-.3-1-.3-1.4-.1l9.8 9.7z"/></svg><span><small>Disponible sur</small><strong>Google Play</strong></span></a>
+</div>
+      </div>
+    </div>
+    <div class="hero__visual" aria-hidden="true">
+      <svg class="track" viewBox="20 -10 540 390" preserveAspectRatio="xMidYMid meet">
+        <path class="track__base" d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z"/>
+        <path class="track__line" d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z"/>
+        <g class="track__mark" data-at="0"><line class="track__finish"/></g>
+        <g class="track__mark" data-at="0.335"><line class="track__sector"/><text class="track__sector-label">S1</text></g>
+        <g class="track__mark" data-at="0.645"><line class="track__sector"/><text class="track__sector-label">S2</text></g>
+        <path class="track__trail" d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z"/>
+        <circle class="track__car" r="7" cx="120" cy="330"/>
+      </svg>
+      <div class="timing">
+        <div class="ui-row"><span class="small" data-t-lap>Tour 1</span><span class="status status--demo">Démonstration</span></div>
+        <p class="timing__now" data-t-now>0:00.000</p>
+        <div class="timing__sectors">
+          <div><span>S1</span><b data-t-sector>—</b></div>
+          <div><span>S2</span><b data-t-sector>—</b></div>
+          <div><span>S3</span><b data-t-sector>—</b></div>
         </div>
+        <div class="timing__meta"><span>Meilleur tour</span><span class="num" data-t-best>—</span></div>
+      </div>
+      <div class="hero__phone"><div class="phone "><div class="phone__screen"><div class="screen is-active">
+  <div class="ui-toast" data-p-toast role="status" aria-live="polite"><span class="ui-dot">W</span><div><b></b><span></span></div></div>
+  <div><p class="screen__title">Session en cours</p><p class="screen__sub">Tracé démo</p></div>
+  <div class="ui-card"><p class="ui-label">Meilleur tour</p><p class="ui-big orange" data-p-best>—</p></div>
+  <div class="ui-card ui-row"><div><p class="ui-label">Dernier</p><p class="ui-mid" data-p-last>—</p></div><div style="text-align:right"><p class="ui-label">Delta</p><p class="ui-mid" data-p-delta>—</p></div></div>
+  <ul class="ui-list" data-p-laps></ul>
+  <div class="ui-tabbar" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+</div></div></div></div>
+    </div>
+  </div>
+</section>
 
-        <!-- Privacy Policy Page -->
-        <div id="privacy" class="page">
-            <div class="content-page">
-                <h1><span data-lang="fr">Politique de confidentialité</span><span data-lang="en" style="display:none;">Privacy Policy</span></h1>
-                
-                <div class="last-updated"><span data-lang="fr">Dernière mise à jour : Janvier 2025</span><span data-lang="en" style="display:none;">Last Updated: January 2025</span></div>
+<section class="section" id="fonctionnalites" aria-labelledby="features-title">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <h2 id="features-title">De la piste à votre poche.</h2>
+      <p class="lead">Tout ce qui se passe pendant votre session continue d’exister après. Voici comment WeLap l’organise.</p>
+    </div>
+    <div class="tour" data-tour>
+      <div class="tour__steps">
+        <article class="tour__step">
+  <p class="tour__step-num">1/6</p>
+  <h3>Chronométrage GPS</h3>
+  <p>Lancez votre session, roulez. WeLap enregistre vos tours automatiquement et vous montre ce qui compte au retour au stand.</p>
+  <ul><li>Meilleur tour</li><li>Dernier tour</li><li>Delta</li><li>Historique des tours</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" role="img" aria-label="Écran de chronométrage : meilleur tour, dernier tour, delta et liste des tours">
+  <div><p class="screen__title">Session en cours</p><p class="screen__sub">Tracé démo, tour 7</p></div>
+  <div class="ui-card"><p class="ui-label">Meilleur tour</p><p class="ui-big orange">1:43.102</p></div>
+  <div class="ui-card ui-row"><div><p class="ui-label">Dernier tour</p><p class="ui-mid">1:43.880</p></div><div style="text-align:right"><p class="ui-label">Delta</p><p class="ui-mid ui-delta--pos">+0.778</p></div></div>
+  <div class="ui-card" style="padding:8px"><svg class="ui-mini-track" viewBox="30 0 520 350" aria-hidden="true"><path d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z" fill="none" stroke="#2a2d33" stroke-width="16" stroke-linejoin="round"/><path d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z" fill="none" stroke="#ff6b35" stroke-width="4" stroke-dasharray="520 2000" stroke-linecap="round"/></svg></div>
+  <ul class="ui-list"><li><span class="pos">T6</span><span><span class="ui-pill">Meilleur</span></span><span class="t orange">1:43.102</span></li><li><span class="pos">T5</span><span></span><span class="t">1:43.880</span></li><li><span class="pos">T4</span><span></span><span class="t">1:43.421</span></li></ul>
+</div></div></div></div>
+</article><article class="tour__step">
+  <p class="tour__step-num">2/6</p>
+  <h3>Chaque session garde sa trace</h3>
+  <p>Vos sessions s’empilent et racontent votre progression : circuit, date, nombre de tours, meilleur chrono. Vous voyez d’où vous partez et où vous en êtes.</p>
+  <ul><li>Historique</li><li>Progression</li><li>Meilleur de la saison</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" role="img" aria-label="Historique des sessions avec la progression du meilleur tour">
+  <div><p class="screen__title">Sessions</p><p class="screen__sub">Votre historique complet</p></div>
+  <div class="ui-card"><div class="ui-row"><div><p class="ui-label">Samedi, tracé démo</p><p class="ui-mid">1:43.102</p></div><svg viewBox="0 0 100 28" style="width:84px;height:24px" aria-hidden="true"><polyline points="0,20 20,16 40,18 60,10 80,12 100,4" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linejoin="round"/></svg></div><p class="screen__sub" style="margin-top:6px">18 tours, meilleur de la saison</p></div>
+  <div class="ui-card"><div class="ui-row"><div><p class="ui-label">Le mois dernier</p><p class="ui-mid">1:44.360</p></div><svg viewBox="0 0 100 28" style="width:84px;height:24px" aria-hidden="true"><polyline points="0,14 20,18 40,12 60,16 80,10 100,12" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linejoin="round"/></svg></div><p class="screen__sub" style="margin-top:6px">22 tours</p></div>
+  <div class="ui-card"><div class="ui-row"><div><p class="ui-label">Première session</p><p class="ui-mid">1:47.915</p></div><svg viewBox="0 0 100 28" style="width:84px;height:24px" aria-hidden="true"><polyline points="0,24 20,20 40,22 60,18 80,19 100,16" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linejoin="round"/></svg></div><p class="screen__sub" style="margin-top:6px">9 tours</p></div>
+  <div class="ui-card ui-row"><span class="ui-label">Progression</span><span class="ui-mid ui-delta--neg">−4.813</span></div>
+</div></div></div></div>
+</article><article class="tour__step" id="classements">
+  <p class="tour__step-num">3/6</p>
+  <h3>Comparez-vous aux bons pilotes</h3>
+  <p>Global, entre amis, sur votre circuit ou au niveau national. Auto et moto sont séparés pour comparer ce qui est comparable. Essayez les onglets.</p>
+  <ul><li>Global</li><li>Amis</li><li>Local</li><li>National</li><li>Auto</li><li>Moto</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" data-lb data-scope="global" data-kind="auto">
+  <div class="ui-row"><div><p class="screen__title">Classements</p><p class="screen__sub">Tracé démo</p></div>
+  <div class="ui-seg" role="group" aria-label="Catégorie"><button type="button" data-lb-kind="auto" aria-pressed="true">Auto</button><button type="button" data-lb-kind="moto" aria-pressed="false">Moto</button></div></div>
+  <div class="ui-tabs" role="group" aria-label="Portée du classement"><button type="button" data-lb-scope="global" aria-pressed="true">Global</button><button type="button" data-lb-scope="amis" aria-pressed="false">Amis</button><button type="button" data-lb-scope="local" aria-pressed="false">Local</button><button type="button" data-lb-scope="national" aria-pressed="false">National</button></div>
+  <ul class="ui-list" data-lb-list aria-live="polite"></ul>
+  <p class="screen__sub" style="margin-top:auto">Données de démonstration</p>
+</div></div></div></div>
+</article><article class="tour__step">
+  <p class="tour__step-num">4/6</p>
+  <h3>Votre garage</h3>
+  <p>Enregistrez vos autos et vos motos. Chaque chrono est rattaché au véhicule qui l’a signé, avec vos badges et votre niveau.</p>
+  <ul><li>Véhicules</li><li>Badges</li><li>Progression</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" role="img" aria-label="Garage : véhicules du pilote, badges et niveau de progression">
+  <div><p class="screen__title">Garage</p><p class="screen__sub">2 véhicules</p></div>
+  <div class="ui-card">
+    <svg viewBox="0 0 200 70" style="width:100%;height:70px" aria-hidden="true"><path d="M14 50c2-10 10-14 26-17l30-12c10-4 22-5 40-5 20 0 34 6 46 14l20 4c8 2 12 6 12 16v4H14z" fill="#2a2d33"/><circle cx="52" cy="54" r="11" fill="#030304" stroke="#ff6b35" stroke-width="3"/><circle cx="150" cy="54" r="11" fill="#030304" stroke="#ff6b35" stroke-width="3"/></svg>
+    <div class="ui-row"><div><p class="ui-mid">Coupé sport</p><p class="screen__sub">Auto, propulsion</p></div><span class="ui-pill">Principal</span></div>
+    <div class="ui-row" style="margin-top:10px"><div><p class="ui-label">Sessions</p><p class="ui-mid">14</p></div><div><p class="ui-label">Meilleur tour</p><p class="ui-mid">1:43.102</p></div></div>
+  </div>
+  <div class="ui-card"><div class="ui-row"><span class="ui-label">Niveau 4</span><span class="ui-label">72 %</span></div><div class="ui-bar" style="margin-top:8px"><i style="width:72%"></i></div>
+  <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span class="ui-pill">Régularité</span><span class="ui-pill">10 sessions</span><span class="ui-pill">Record perso</span></div></div>
+  <div class="ui-card ui-row"><div><p class="ui-mid">Roadster moto</p><p class="screen__sub">Moto</p></div><span class="ui-label">6 sessions</span></div>
+</div></div></div></div>
+</article><article class="tour__step">
+  <p class="tour__step-num">5/6</p>
+  <h3>Une communauté qui roule</h3>
+  <p>Profils, publications, performances partagées. Un record prend une autre dimension quand vos amis le voient passer.</p>
+  <ul><li>Profils</li><li>Publications</li><li>Réactions</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" role="img" aria-label="Fil de la communauté : un pilote partage un nouveau record avec son chrono">
+  <div><p class="screen__title">Communauté</p><p class="screen__sub">Vos amis et votre circuit</p></div>
+  <div class="ui-card">
+    <div class="ui-row" style="justify-content:flex-start;gap:10px"><span class="ui-avatar">LB</span><div><p style="font-weight:500">@late_braker</p><p class="screen__sub">il y a 2 h</p></div></div>
+    <p style="margin:10px 0 8px">Enfin sous la barre des 1:43 sur le tracé démo.</p>
+    <div class="ui-card" style="background:#0c0d0f"><svg class="ui-mini-track" viewBox="30 0 520 350" aria-hidden="true"><path d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z" fill="none" stroke="#2a2d33" stroke-width="16" stroke-linejoin="round"/><path d="M 120 330 L 380 330 C 455 330 482 290 466 238 L 436 150 C 424 112 446 84 482 78 C 522 71 526 22 480 18 L 262 16 C 214 16 196 44 212 80 L 244 146 C 260 182 236 208 200 198 L 118 176 C 66 162 44 204 60 246 L 72 290 C 82 318 96 330 120 330 Z" fill="none" stroke="#ff6b35" stroke-width="4" stroke-dasharray="520 2000" stroke-linecap="round"/></svg><div class="ui-row"><span class="ui-mid orange">1:42.874</span><span class="ui-mid ui-delta--neg">−0.311</span></div></div>
+    <div class="ui-row" style="margin-top:10px;justify-content:flex-start;gap:16px"><span class="screen__sub">24 j’aime</span><span class="screen__sub">6 commentaires</span></div>
+  </div>
+  <div class="ui-card ui-row"><div class="ui-row" style="gap:10px"><span class="ui-avatar">AH</span><p>@apex.hunter a rejoint votre challenge</p></div></div>
+</div></div></div></div>
+</article><article class="tour__step">
+  <p class="tour__step-num">6/6</p>
+  <h3>Circuits, événements, notifications</h3>
+  <p>Trouvez les circuits disponibles dans WeLap, repérez les prochaines journées circuit et recevez en notification push les résultats et rappels qui vous concernent.</p>
+  <ul><li>Circuits</li><li>Journées circuit</li><li>Notifications push</li><li>Résultats</li></ul>
+  <div class="tour__inline"><div class="phone "><div class="phone__screen"><div class="screen" role="img" aria-label="Circuits, événements à venir et notifications">
+  <div><p class="screen__title">Autour de vous</p><p class="screen__sub">Circuits, événements, notifications</p></div>
+  <div class="ui-card ui-row" style="justify-content:flex-start;gap:12px"><svg viewBox="0 0 60 40" style="width:54px;height:36px;flex:none" aria-hidden="true"><path d="M8 32h36c8 0 10-8 6-14L44 8c-3-5-10-5-12 0l-4 10c-2 4-8 4-10 0L14 10c-3-4-9-2-9 3v14c0 3 1 5 3 5z" fill="none" stroke="#ff6b35" stroke-width="2.5" stroke-linejoin="round"/></svg><div><p style="font-weight:500">Circuit 1</p><p class="screen__sub">Auto et moto</p></div></div>
+  <div class="ui-card ui-row" style="justify-content:flex-start;gap:12px"><svg viewBox="0 0 60 40" style="width:54px;height:36px;flex:none" aria-hidden="true"><path d="M10 30h40c6 0 6-8 0-8H30c-6 0-6-8 0-8h14c6 0 6-8 0-8H12c-6 0-8 4-8 8v10c0 4 2 6 6 6z" fill="none" stroke="#ff6b35" stroke-width="2.5" stroke-linejoin="round"/></svg><div><p style="font-weight:500">Piste de karting</p><p class="screen__sub">Karting</p></div></div>
+  <div class="ui-card"><p class="ui-label">Événement</p><p class="ui-mid">Journée circuit</p><p class="screen__sub">Samedi, inscriptions ouvertes</p></div>
+  <div class="ui-card ui-row" style="gap:10px;border:1px solid rgba(255,107,53,.35)"><span class="ui-dot">W</span><div style="flex:1"><p style="font-weight:500">Résultat de votre challenge</p><p class="screen__sub">Vous terminez 3e</p></div></div>
+</div></div></div></div>
+</article>
+      </div>
+      <div class="tour__stage" role="region" aria-label="Aperçu de l’application"><div class="phone"><div class="phone__screen"></div></div></div>
+    </div>
+  </div>
+</section>
 
-                <!-- FRENCH VERSION -->
-                <div data-lang="fr">
-                    <p>WeLap collecte certaines données nécessaires au fonctionnement de l'application, notamment l'adresse e-mail, les informations de profil, les contenus publiés, les véhicules ajoutés au garage, les chronos, les interactions dans l'application et, lorsque l'utilisateur l'autorise, les données de localisation nécessaires au chronométrage GPS.</p>
+<section class="section section--anth" id="un-seul-profil" aria-labelledby="converge-title">
+  <div class="wrap converge">
+    <div data-reveal>
+      <h2 id="converge-title">Toutes vos performances. Un seul endroit.</h2>
+      <p class="lead" style="margin-top:1.5rem">Aujourd’hui, vos chronos sont éparpillés : une appli, un transpondeur de karting, une feuille imprimée au comptoir, un résultat d’événement. WeLap veut les réunir progressivement dans votre profil, pour que votre historique vous suive partout où vous roulez.</p>
+      <div class="legend"><span class="status status--live">Disponible aujourd’hui</span><span class="status status--dev">En développement</span><span class="status status--concept">Vision</span></div>
+    </div>
+    <div data-reveal><svg class="converge__svg converge__svg--wide" data-converge viewBox="0 0 660 500" role="img" aria-label="Plusieurs sources de chronos convergent vers un seul profil WeLap">
+<path id="cw0" class="converge__path is-live" d="M 250 52 C 380 52, 400 250, 482 250"/>
+<g class="converge__node is-live"><rect x="0" y="20" width="250" height="64" rx="12"/><text x="20" y="48">Chrono GPS WeLap</text><text class="st" x="20" y="70">Disponible</text></g>
+<circle class="converge__pulse" r="5" opacity="1"><animateMotion dur="2.20s" repeatCount="indefinite" begin="0s"><mpath href="#cw0"/></animateMotion></circle>
+<path id="cw1" class="converge__path" d="M 250 144 C 380 144, 400 250, 482 250"/>
+<g class="converge__node"><rect x="0" y="112" width="250" height="64" rx="12"/><text x="20" y="140">Karting</text><text class="st" x="20" y="162">Via WeLap Pro, en dév.</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.45s" repeatCount="indefinite" begin="0s"><mpath href="#cw1"/></animateMotion></circle>
+<path id="cw2" class="converge__path" d="M 250 236 C 380 236, 400 250, 482 250"/>
+<g class="converge__node"><rect x="0" y="204" width="250" height="64" rx="12"/><text x="20" y="232">Circuit</text><text class="st" x="20" y="254">Via WeLap Pro, en dév.</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.70s" repeatCount="indefinite" begin="0s"><mpath href="#cw2"/></animateMotion></circle>
+<path id="cw3" class="converge__path" d="M 250 328 C 380 328, 400 250, 482 250"/>
+<g class="converge__node"><rect x="0" y="296" width="250" height="64" rx="12"/><text x="20" y="324">Événement</text><text class="st" x="20" y="346">Vision</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.95s" repeatCount="indefinite" begin="0s"><mpath href="#cw3"/></animateMotion></circle>
+<path id="cw4" class="converge__path" d="M 250 420 C 380 420, 400 250, 482 250"/>
+<g class="converge__node"><rect x="0" y="388" width="250" height="64" rx="12"/><text x="20" y="416">Feuille de résultats</text><text class="st" x="20" y="438">Vision</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="3.20s" repeatCount="indefinite" begin="0s"><mpath href="#cw4"/></animateMotion></circle>
+<g class="converge__core"><circle class="converge__ring" cx="560" cy="250" r="78" style="fill:none"/><circle cx="560" cy="250" r="78"/><text x="560" y="248" text-anchor="middle">Votre</text><text x="560" y="278" text-anchor="middle">profil</text></g>
+</svg>
+<svg class="converge__svg converge__svg--tall" data-converge viewBox="0 0 360 560" role="img" aria-label="Plusieurs sources de chronos convergent vers un seul profil WeLap">
+<path id="cm0" class="converge__path is-live" d="M 87 70 C 87 190, 180 320, 180 406"/>
+<g class="converge__node is-live"><rect x="0" y="0" width="174" height="70" rx="12"/><text x="14" y="30" style="font-size:16px">Chrono GPS WeLap</text><text class="st" x="14" y="53" style="font-size:13px">Disponible</text></g>
+<circle class="converge__pulse" r="5" opacity="1"><animateMotion dur="2.00s" repeatCount="indefinite" begin="0s"><mpath href="#cm0"/></animateMotion></circle>
+<path id="cm1" class="converge__path" d="M 273 70 C 273 190, 180 320, 180 406"/>
+<g class="converge__node"><rect x="186" y="0" width="174" height="70" rx="12"/><text x="200" y="30" style="font-size:16px">Karting</text><text class="st" x="200" y="53" style="font-size:13px">Via WeLap Pro, en dév.</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.25s" repeatCount="indefinite" begin="0s"><mpath href="#cm1"/></animateMotion></circle>
+<path id="cm2" class="converge__path" d="M 87 156 C 87 276, 180 320, 180 406"/>
+<g class="converge__node"><rect x="0" y="86" width="174" height="70" rx="12"/><text x="14" y="116" style="font-size:16px">Circuit</text><text class="st" x="14" y="139" style="font-size:13px">Via WeLap Pro, en dév.</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.50s" repeatCount="indefinite" begin="0s"><mpath href="#cm2"/></animateMotion></circle>
+<path id="cm3" class="converge__path" d="M 273 156 C 273 276, 180 320, 180 406"/>
+<g class="converge__node"><rect x="186" y="86" width="174" height="70" rx="12"/><text x="200" y="116" style="font-size:16px">Événement</text><text class="st" x="200" y="139" style="font-size:13px">Vision</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="2.75s" repeatCount="indefinite" begin="0s"><mpath href="#cm3"/></animateMotion></circle>
+<path id="cm4" class="converge__path" d="M 180 242 C 180 362, 180 320, 180 406"/>
+<g class="converge__node"><rect x="93" y="172" width="174" height="70" rx="12"/><text x="107" y="202" style="font-size:16px">Feuille de résultats</text><text class="st" x="107" y="225" style="font-size:13px">Vision</text></g>
+<circle class="converge__pulse" r="5" opacity=".45"><animateMotion dur="3.00s" repeatCount="indefinite" begin="0s"><mpath href="#cm4"/></animateMotion></circle>
+<g class="converge__core"><circle class="converge__ring" cx="180" cy="470" r="64" style="fill:none"/><circle cx="180" cy="470" r="64"/><text x="180" y="468" text-anchor="middle" style="font-size:26px">Votre</text><text x="180" y="494" text-anchor="middle" style="font-size:26px">profil</text></g>
+</svg></div>
+  </div>
+</section>
 
-                    <p>Ces données sont utilisées pour fournir les fonctionnalités de l'application : création de compte, connexion, chronométrage, classements, garage, publications, communauté et abonnement Premium.</p>
+<section class="section" id="challenges" aria-labelledby="challenges-title">
+  <div class="wrap challenge">
+    <div data-reveal>
+      <h2 id="challenges-title">Un objectif. Une date limite. Un classement.</h2>
+      <p class="lead" style="margin-top:1.5rem">Chaque mois, WeLap propose des challenges liés à des circuits. Vous enregistrez vos chronos sur le circuit concerné, le classement évolue jusqu’au dernier jour, et vous recevez le résultat en notification.</p>
+      <div class="challenge__ideas">
+        <div><b>Challenge mensuel</b><span>Un circuit, un mois, un classement.</span></div>
+        <div><b>Challenge d’été</b><span>Une saison entière pour signer le meilleur tour.</span></div>
+        <div><b>Objectif sous 1:50</b><span>Un temps cible à passer, seul contre le chrono.</span></div>
+        <div><b>Classement d’événement</b><span>Le temps d’une journée circuit.</span></div>
+      </div>
+    </div>
+    <div class="challenge__card" data-reveal>
+      <div class="ui-row"><span class="status status--demo">Exemple de challenge</span><span class="small">Tracé démo, auto</span></div>
+      <p class="challenge__goal">Objectif sous 1:43.500</p>
+      <p class="muted">Signez un tour sous le temps cible avant la fin du challenge.</p>
+      <div class="challenge__clock" data-countdown role="timer" aria-label="Temps restant dans le challenge d’exemple">
+        <div><b data-d>12</b><span>jours</span></div><div><b data-h>05</b><span>heures</span></div><div><b data-m>42</b><span>min</span></div><div><b data-s>00</b><span>s</span></div>
+      </div>
+      <div class="ui-row small" style="margin-bottom:.5rem"><span>Votre meilleur tour : <span class="num" style="color:var(--c-white)">1:43.880</span></span><span class="orange">encore 0.380</span></div>
+      <div class="ui-bar"><i style="width:86%"></i></div>
+    </div>
+  </div>
+</section>
 
-                    <p><strong>WeLap ne vend pas les données personnelles des utilisateurs.</strong></p>
+<section class="section section--anth" aria-labelledby="loop-title">
+  <div class="wrap loop" data-loop>
+    <div><svg class="loop__svg" viewBox="-40 -10 600 540" role="img" aria-label="Boucle : rouler, enregistrer, comparer, progresser, revenir">
+<circle class="loop__ring" cx="260" cy="260" r="180"/>
+<path class="loop__progress" d="M 260 80 A 180 180 0 1 1 259.99 80"/>
+<text class="loop__half" x="150" y="40" text-anchor="end">Sur la piste</text>
+<text class="loop__half" x="420" y="500" text-anchor="start">Dans WeLap</text>
+<g class="loop__node"><circle cx="260.0" cy="80.0" r="22"/><text class="n" x="260.0" y="86.0" text-anchor="middle">1</text><text x="260.0" y="38.0" text-anchor="middle">Rouler</text></g>
+<g class="loop__node"><circle cx="431.2" cy="204.4" r="22"/><text class="n" x="431.2" y="210.4" text-anchor="middle">2</text><text x="474.9" y="197.2" text-anchor="start">Enregistrer</text></g>
+<g class="loop__node"><circle cx="365.8" cy="405.6" r="22"/><text class="n" x="365.8" y="411.6" text-anchor="middle">3</text><text x="392.8" y="449.8" text-anchor="start">Comparer</text></g>
+<g class="loop__node"><circle cx="154.2" cy="405.6" r="22"/><text class="n" x="154.2" y="411.6" text-anchor="middle">4</text><text x="127.2" y="449.8" text-anchor="end">Progresser</text></g>
+<g class="loop__node"><circle cx="88.8" cy="204.4" r="22"/><text class="n" x="88.8" y="210.4" text-anchor="middle">5</text><text x="45.1" y="197.2" text-anchor="end">Revenir</text></g>
+<text class="loop__center-title" x="260" y="256" text-anchor="middle">Chaque tour</text>
+<text class="loop__center-sub" x="260" y="286" text-anchor="middle">donne envie du suivant</text>
+</svg></div>
+    <div>
+      <h2 id="loop-title" data-reveal>Rouler. Enregistrer. Revenir.</h2>
+      <p class="lead" style="margin:1.5rem 0 2rem">Un chrono que l’on retrouve donne envie d’être battu. C’est tout le principe de WeLap.</p>
+      <ol class="loop__list">
+        <li><b>Rouler</b>Vous prenez la piste, auto ou moto.</li>
+        <li><b>Enregistrer</b>Vos tours rejoignent votre profil.</li>
+        <li><b>Comparer</b>Classements, amis, historique.</li>
+        <li><b>Progresser</b>Vous voyez où vous gagnez du temps.</li>
+        <li><b>Revenir</b>Vous avez un chrono à battre.</li>
+      </ol>
+    </div>
+  </div>
+</section>
 
-                    <p>Les données de localisation sont utilisées pour les fonctionnalités liées aux circuits et au chronométrage. Elles ne sont pas utilisées à des fins de suivi publicitaire dans la version actuelle de l'application.</p>
+<section class="section" id="pro" aria-labelledby="pro-title">
+  <div class="wrap">
+    <div class="pro-teaser" data-reveal>
+      <div>
+        <span class="status status--dev">WeLap Pro, en développement</span>
+        <h2 id="pro-title">Le chrono ne disparaît plus quand le pilote quitte la piste.</h2>
+        <p class="lead" style="margin-bottom:2rem">Pour les kartings, circuits et organisateurs : un QR code en fin de session, et le résultat du client rejoint son profil WeLap. Il retrouve son temps, son classement, sa progression. Et il a une raison de revenir.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="/pro/">Découvrir WeLap Pro</a><a class="btn btn--ghost" href="/pro/#demo">Voir la démonstration</a></div>
+      </div>
+      <ol class="flow">
+        <li><b>1</b><span><strong>Je roule.</strong> Session au karting ou sur circuit.</span></li>
+        <li><b>2</b><span><strong>Je scanne.</strong> QR code en fin de session.</span></li>
+        <li><b>3</b><span><strong>Je récupère.</strong> Mon chrono arrive dans WeLap.</span></li>
+        <li><b>4</b><span><strong>Je me compare.</strong> Classement et historique.</span></li>
+        <li><b>5</b><span><strong>Je reviens.</strong> Pour battre mon temps.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
 
-                    <p>Les photos, vidéos, publications, commentaires et informations de garage sont liés au compte utilisateur afin de permettre l'affichage du profil, du garage et des publications.</p>
+<section class="section section--tight" aria-labelledby="faq-title">
+  <div class="wrap">
+    <h2 id="faq-title" style="margin-bottom:2.5rem">Questions fréquentes</h2>
+    <div class="faq">
+      <details><summary>Comment fonctionne le chronométrage GPS de WeLap ?</summary><p>Vous lancez une session depuis l’application avant de rouler. Le GPS de votre téléphone enregistre vos tours automatiquement : meilleur tour, dernier tour, delta et historique complet de la session. Les chronos GPS restent indicatifs et peuvent varier selon le signal et l’appareil : les temps officiels du circuit font foi.</p></details><details><summary>WeLap fonctionne-t-il en moto comme en auto ?</summary><p>Oui. WeLap est pensé pour les pilotes auto et moto sur circuit. Les classements distinguent les deux catégories pour que chacun se compare à des performances comparables.</p></details><details><summary>Est-ce une application de trackday ?</summary><p>WeLap accompagne vos journées circuit de bout en bout : découverte des circuits et des événements, chronométrage pendant la session, puis historique, classements et challenges une fois rentré au paddock.</p></details><details><summary>Et le karting ?</summary><p>Le chronométrage karting passe par les systèmes de chaque établissement. Avec WeLap Pro, actuellement en développement, un karting pourra proposer un QR code en fin de session pour que le pilote retrouve son résultat dans son profil WeLap.</p></details><details><summary>Comment fonctionnent les challenges ?</summary><p>Chaque mois, des challenges sont proposés sur certains circuits. Vous roulez sur le circuit concerné, votre meilleur chrono entre au classement du challenge et vous suivez son évolution jusqu’à la fin du mois.</p></details><details><summary>WeLap est-il gratuit ?</summary><p>WeLap se télécharge gratuitement sur l’App Store et Google Play. Un abonnement Premium optionnel est proposé dans l’application, notamment pour profiter de WeLap sans publicité.</p></details>
+    </div>
+  </div>
+</section>
 
-                    <p><strong>Suppression de compte et données :</strong> Les utilisateurs peuvent demander la suppression de leur compte ou de leurs données en contactant : <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
-                </div>
+<section class="section" id="telecharger" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title" class="sr-only">Commencer avec WeLap</h2>
+    <div class="split">
+      <div>
+        <p class="who">Je suis pilote</p>
+        <h2>Prêt pour votre prochain tour ?</h2>
+        <p class="muted">Téléchargez WeLap, lancez votre première session et gardez chaque chrono.</p>
+        <div class="stores">
+  <a class="store" data-store="ios" href="https://apps.apple.com/fr/app/welap/id6781696001" rel="noopener" aria-label="Télécharger WeLap dans l’App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><strong>App Store</strong></span></a>
+  <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.welap.app" rel="noopener" aria-label="Télécharger WeLap sur Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00c7ff" d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#ffce00" d="m16.7 15.3-3.3-3.3 3.3-3.3 3.8 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#ff3a44" d="M16.7 15.3 13.4 12l-9.8 9.7c.4.2.9.2 1.4-.1z"/><path fill="#00e676" d="M16.7 8.7 5 2.4c-.5-.3-1-.3-1.4-.1l9.8 9.7z"/></svg><span><small>Disponible sur</small><strong>Google Play</strong></span></a>
+</div>
+      </div>
+      <div>
+        <p class="who">Je suis professionnel</p>
+        <h2>Faites vivre l’expérience après le dernier tour.</h2>
+        <p class="muted">Karting, circuit, organisateur : parlons de ce que WeLap Pro peut apporter à vos clients.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="/pro/">Découvrir WeLap Pro</a><a class="btn btn--ghost" href="mailto:contact.welap@gmail.com?subject=WeLap%20Pro%20%E2%80%93%20mon%20%C3%A9tablissement">Parler de votre projet</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- ENGLISH VERSION -->
-                <div data-lang="en" style="display:none;">
-                    <h2>Introduction</h2>
-                    <p>WeLap ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
-
-                    <h2>Information We Collect</h2>
-                    
-                    <h3>Account and Profile Information</h3>
-                    <p>When you create a WeLap account, we collect your email address, username, profile picture, and other profile details you provide.</p>
-
-                    <h3>Vehicle Information</h3>
-                    <p>When you add vehicles to your garage, we collect information including make, model, year, horsepower, transmission type, and photos.</p>
-
-                    <h3>Location and GPS Data</h3>
-                    <p>With your permission, WeLap collects precise location data via GPS when you use our lap timing features. This data is necessary to calculate and record your lap times. You can disable GPS access through your device settings.</p>
-
-                    <h3>Session and Performance Data</h3>
-                    <p>We collect and store data about your driving sessions, including lap times, circuit information, vehicle selection, and performance metrics.</p>
-
-                    <h3>User-Generated Content</h3>
-                    <p>WeLap allows you to upload photos, videos, posts, and comments. We collect, store, and display this content as part of your profile and community interactions.</p>
-
-                    <h3>Payment and Subscription Information</h3>
-                    <p>If you subscribe to WeLap Premium, your subscription is processed through Apple In-App Purchase. We do not collect, store, or have access to your credit card or banking information. Apple handles all payment processing securely.</p>
-
-                    <h3>Technical Information</h3>
-                    <p>We automatically collect technical data including device model, operating system version, app version, and crash reports to improve app stability and performance.</p>
-
-                    <h2>How We Use Information</h2>
-                    <ul>
-                        <li>Provide, operate, and maintain the App and its features</li>
-                        <li>Create and manage your account</li>
-                        <li>Record and display your lap times and performance</li>
-                        <li>Enable leaderboards and rankings</li>
-                        <li>Facilitate community features and sharing</li>
-                        <li>Manage your Premium subscription</li>
-                        <li>Analyze app usage and improve user experience</li>
-                        <li>Send service updates and support responses</li>
-                        <li>Protect against fraud and unauthorized access</li>
-                        <li>Comply with applicable laws and regulations</li>
-                    </ul>
-
-                    <h2>Location Data</h2>
-                    <p>WeLap uses GPS location data for lap timing and performance tracking. Location data is only collected when you actively initiate a GPS recording session. You can disable GPS access through your device settings. Location data is encrypted during transmission and storage.</p>
-
-                    <h2>User Content</h2>
-                    <p>You are responsible for the content you upload to WeLap. When you upload content, you grant WeLap a license to use, display, and distribute that content within the App. User-generated content may be visible to other WeLap users depending on your privacy settings.</p>
-
-                    <h2>Payments and Subscriptions</h2>
-                    <p>WeLap Premium subscriptions are processed through Apple In-App Purchase using StoreKit. We do not directly process or store payment information. Apple handles all payment processing securely. We use RevenueCat for subscription management and only receive information about your subscription status and purchase events.</p>
-
-                    <h2>Analytics, Advertising, and Crash Reporting</h2>
-                    
-                    <h3>Analytics</h3>
-                    <p>We may use analytics tools to understand how users interact with the App. This data is typically anonymized and does not directly identify individual users.</p>
-
-                    <h3>Advertising</h3>
-                    <p>The free version of WeLap may display advertisements through Google AdMob. You can opt out of personalized ads through your device settings. Advertisements are not displayed in WeLap Premium.</p>
-
-                    <h3>Crash Reporting</h3>
-                    <p>We may use crash reporting tools to collect information about app crashes and technical errors. Crash reports may include device information and app state but do not include personal data.</p>
-
-                    <h2>Third-Party Services</h2>
-                    
-                    <h3>Supabase</h3>
-                    <p>WeLap uses Supabase for backend infrastructure and database services. Your account information, garage data, session records, and user-generated content are stored on Supabase's secure servers.</p>
-
-                    <h3>RevenueCat</h3>
-                    <p>We use RevenueCat to manage subscriptions and in-app purchases. RevenueCat receives information about your subscription status but does not have access to your payment information.</p>
-
-                    <h3>Apple App Store and StoreKit</h3>
-                    <p>On iOS, WeLap uses Apple's StoreKit framework for in-app purchases and subscription management. Apple processes all payments and stores your subscription information.</p>
-
-                    <h3>Google AdMob</h3>
-                    <p>If you use the free version of WeLap, you may see advertisements served by Google AdMob. AdMob may collect advertising identifiers to serve personalized ads.</p>
-
-                    <h2>Data Retention</h2>
-                    <p>We retain your personal information for as long as your account is active. If you delete your account, we will delete or anonymize most of your personal data within a reasonable timeframe, except where legally required.</p>
-
-                    <h2>Account Deletion and Data Requests</h2>
-                    <p>You have the right to request access to your personal data, correct inaccurate information, delete your account, and export your data. To exercise these rights, contact us at <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a>. We will respond within 30 days.</p>
-
-                    <h2>Children's Privacy</h2>
-                    <p>WeLap is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware of such collection, we will promptly delete the information.</p>
-
-                    <h2>Security</h2>
-                    <p>WeLap implements security measures to protect your personal information, including encryption of data in transit and at rest, secure authentication, and regular security updates.</p>
-
-                    <h2>Changes to This Privacy Policy</h2>
-                    <p>We may update this Privacy Policy periodically. We will notify you of material changes by posting the updated policy in the App. Your continued use of the App following changes means you accept the new terms.</p>
-
-                    <h2>Contact Us</h2>
-                    <p>If you have questions about this Privacy Policy, contact us at:</p>
-                    <p><strong>Email:</strong> <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
-                    <p>We will respond to your inquiry within 30 days.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Terms Page -->
-        <div id="terms" class="page">
-            <div class="content-page">
-                <h1><span data-lang="fr">Conditions d'utilisation</span><span data-lang="en" style="display:none;">Terms of Service</span></h1>
-
-                <!-- FRENCH VERSION -->
-                <div data-lang="fr">
-                    <p>WeLap est une application destinée aux passionnés de circuit auto et moto.</p>
-
-                    <p><strong>Responsabilité sur circuit :</strong> L'utilisateur est responsable de son comportement sur circuit et doit respecter les règles de sécurité, les consignes des organisateurs, les lois en vigueur et les conditions d'accès aux circuits.</p>
-
-                    <p><strong>Précision des chronos :</strong> Les chronos GPS fournis par l'application sont donnés à titre indicatif et peuvent varier selon la qualité du signal GPS, l'appareil utilisé et les conditions d'utilisation.</p>
-
-                    <p><strong>Contenu utilisateur :</strong> L'utilisateur s'engage à ne pas publier de contenu illégal, dangereux, offensant, trompeur ou portant atteinte aux droits d'autrui.</p>
-
-                    <p><strong>Modération :</strong> WeLap peut supprimer un contenu ou un compte en cas d'usage abusif ou non conforme aux présentes conditions.</p>
-
-                    <p><strong>Questions :</strong> Pour toute question : <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
-                </div>
-
-                <!-- ENGLISH VERSION -->
-                <div data-lang="en" style="display:none;">
-                    <p>WeLap is a mobile application designed for car and motorcycle circuit enthusiasts.</p>
-
-                    <h2>User Responsibility</h2>
-                    <p><strong>Circuit Safety:</strong> You are solely responsible for your behavior at circuits and events. You must comply with all safety regulations, follow circuit officials' instructions, operate your vehicle safely and responsibly, comply with applicable laws, and respect each circuit's terms and conditions.</p>
-
-                    <h2>GPS Lap Times Disclaimer</h2>
-                    <p><strong>GPS Accuracy:</strong> GPS lap times provided by WeLap are for informational purposes only. Lap times may vary due to GPS signal quality, device differences, environmental factors, and app settings. WeLap does not guarantee accuracy. Official circuit times take precedence over WeLap recordings.</p>
-
-                    <h2>User-Generated Content</h2>
-                    <p>You are responsible for all content you upload, share, or post through WeLap. You agree not to post illegal, dangerous, offensive, misleading, or infringing content. When you post content, you grant WeLap a license to use, display, and distribute that content within the App.</p>
-
-                    <h2>Content Moderation</h2>
-                    <p>WeLap reserves the right to monitor, review, moderate, delete, or restrict access to user-generated content at any time without prior notice.</p>
-
-                    <h2>Account Suspension and Termination</h2>
-                    <p>We may suspend or terminate your account if you violate these Terms, engage in abusive behavior, post inappropriate content, attempt unauthorized access, or use the App fraudulently.</p>
-
-                    <h2>Limitation of Liability</h2>
-                    <p>To the fullest extent permitted by law, WeLap shall not be liable for injuries, accidents, damages from app use, circuit activities, loss of data, service interruptions, or technical failures.</p>
-
-                    <h2>Changes to Terms</h2>
-                    <p>We may update these Terms at any time. Continued use of the App signifies acceptance of new terms.</p>
-
-                    <h2>Contact</h2>
-                    <p>For questions about these Terms, contact us at <a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="brand">WeLap</div>
-            <div class="slogan"><span class="slogan-word1">We drive.</span> <span class="slogan-word2">We track.</span> <span class="slogan-word3">We lap.</span></div>
-            
-            <div class="footer-links">
-                <a href="#" onclick="navigateTo('home'); return false;"><span data-lang="fr">Accueil</span><span data-lang="en" style="display:none;">Home</span></a>
-                <a href="#" onclick="navigateTo('support'); return false;">Support</a>
-                <a href="#" onclick="navigateTo('privacy'); return false;"><span data-lang="fr">Confidentialité</span><span data-lang="en" style="display:none;">Privacy</span></a>
-                <a href="#" onclick="navigateTo('terms'); return false;"><span data-lang="fr">Conditions</span><span data-lang="en" style="display:none;">Terms</span></a>
-                <a href="mailto:contact.welap@gmail.com">Contact</a>
-            </div>
-            
-            <div class="copyright"><span data-lang="fr">&copy; 2025 WeLap. Tous droits réservés.</span><span data-lang="en" style="display:none;">&copy; 2025 WeLap. All rights reserved.</span></div>
-        </div>
-    </footer>
-
-    <script>
-        // Language switching
-        let currentLanguage = localStorage.getItem('welap-lang') || 'fr';
-        
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('welap-lang', lang);
-            
-            // Update language buttons
-            document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
-            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-            
-            // Update all language elements
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
-            });
-            
-            // Update page title
-            const page = document.querySelector('.page.active');
-            if (page) {
-                const title = page.querySelector('h1');
-                if (title) {
-                    document.title = title.textContent + ' - WeLap';
-                }
-            }
-        }
-        
-        // Initialize language
-        setLanguage(currentLanguage);
-        
-        function navigateTo(page) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => p.classList.remove('active'));
-            
-            const selectedPage = document.getElementById(page);
-            if (selectedPage) {
-                selectedPage.classList.add('active');
-            }
-            
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            const activeNav = document.querySelector(`.nav-item[data-page="${page}"]`);
-            if (activeNav) {
-                activeNav.classList.add('active');
-            }
-            
-            window.scrollTo(0, 0);
-            window.history.pushState({page}, '', `/#${page}`);
-        }
-        
-        window.addEventListener('popstate', (e) => {
-            if (e.state && e.state.page) {
-                navigateTo(e.state.page);
-            }
-        });
-        
-        window.addEventListener('load', () => {
-            const hash = window.location.hash.slice(1);
-            if (hash && document.getElementById(hash)) {
-                navigateTo(hash);
-            }
-        });
-    </script>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="logo" href="/" aria-label="WeLap, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#ff6b35"/><path d="M6.5 9h3.6l1.6 9.2L15.4 9h3l1.2 9.2L23.4 9H27l-6.1 14.5h-3.1l-1.3-8.6-3.6 8.6H9.8z" fill="#030304"/></svg><span>WeLap</span></a>
+        <p class="footer__motto">We drive. We track. We lap.</p>
+      </div>
+      <div>
+        <h2>Pilotes</h2>
+        <ul>
+          <li><a href="/#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="/#classements">Classements</a></li>
+          <li><a href="/#challenges">Challenges</a></li>
+          <li><a href="/#telecharger">Télécharger</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Professionnels</h2>
+        <ul>
+          <li><a href="/pro/">WeLap Pro</a></li>
+          <li><a href="/pro/#demo">Démonstration QR code</a></li>
+          <li><a href="mailto:contact.welap@gmail.com?subject=WeLap%20Pro">Nous contacter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Informations</h2>
+        <ul>
+          <li><a href="/support/">Support</a></li>
+          <li><a href="/confidentialite/">Confidentialité</a></li>
+          <li><a href="/conditions/">Conditions d’utilisation</a></li>
+          <li><a href="mailto:contact.welap@gmail.com">contact.welap@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom small">
+      <span>© <span data-year>2026</span> WeLap. Tous droits réservés.</span>
+      <span>Les chronos GPS sont indicatifs. Les temps officiels du circuit font foi.</span>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
