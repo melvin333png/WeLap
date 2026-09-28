@@ -652,3 +652,38 @@ h3 { font-family: var(--f-display); font-weight: 600; font-size: var(--t-h3); li
 @media (max-width: 420px) { .footer__grid { grid-template-columns: 1fr; } .contact-card .btn { white-space: normal; text-align: center; } }
 .dash { min-width: 0; }
 @media (max-width: 420px) { .dash { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Logo officiel ---------- */
+.logo img { display: block; width: auto; object-fit: contain; }
+.logo--nav img { height: 54px; }
+.logo--footer img { height: 48px; opacity: .9; }
+@media (max-width: 880px) { .logo--nav img { height: 48px; } .logo--footer img { height: 44px; } }
+
+/* ---------- Menu mobile : couche opaque dédiée ---------- */
+@media (max-width: 880px) {
+  /* backdrop-filter sur .nav crée un bloc conteneur pour les éléments fixed :
+     le menu restait coincé dans la barre et laissait voir le hero. On le coupe quand le menu est ouvert. */
+  .nav.is-open {
+    background: #000;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    z-index: 1000;
+  }
+  .nav__menu {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0; bottom: auto;
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    background: #000;
+    opacity: 0;
+    z-index: 1000;
+    isolation: isolate;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    gap: 2rem;
+  }
+  .nav.is-open .nav__menu { opacity: 1; }
+  body.menu-open { overflow: hidden; touch-action: none; }
+  body.menu-open .nav__menu { touch-action: pan-y; }
+}
